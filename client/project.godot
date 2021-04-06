@@ -16,7 +16,14 @@ _global_script_class_icons={
 [application]
 
 config/name="Client"
+run/main_scene="res://Menu/StartMenu.tscn"
 config/icon="res://icon.png"
+
+[autoload]
+
+GameServer="*res://Singletons/GameServer.gd"
+Gateway="*res://Singletons/Gateway.gd"
+Services="*res://Singletons/Services.gd"
 
 [rendering]
 
