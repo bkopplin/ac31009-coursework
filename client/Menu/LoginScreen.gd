@@ -19,6 +19,7 @@ func _on_ButtonLogin_pressed() -> void:
 
 	if not error_check():
 		Gateway.login_request(username, password)
+		Global.username = username
 
 func error_check() -> bool:
 	error_message.text = ""

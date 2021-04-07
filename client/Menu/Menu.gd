@@ -7,7 +7,7 @@ var lobby_screen = preload("res://Menu/Lobby.tscn").instance()
 
 var tree: SceneTree
 var current_screen: Node = login_screen
-var inital_screen: Node = signup_screen # for debugging purposes
+var inital_screen: Node = login_screen # for debugging purposes
 
 func _ready() -> void:
 	if is_login_required():
@@ -24,7 +24,7 @@ func change_current_screen(new_screen: Node) -> void:
 	add_child(current_screen)
 
 func changeto_playerList_screen() -> void:
-	change_current_screen(playerList_screen)
+	change_current_screen(playerList_screen)	
 
 func changeto_signup_screen() -> void:
 	change_current_screen(signup_screen)
@@ -37,6 +37,8 @@ func is_login_required() -> bool:
 
 func return_auth_results(token: String, result: bool) -> void:
 	if result:
-		change_current_screen(playerList_screen)
+		changeto_playerList_screen()
+		Global.token = token
+		Services.connect_to_services()
 	else:
 		current_screen.request_failed()

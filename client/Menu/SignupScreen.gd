@@ -26,6 +26,7 @@ func _on_ButtonLogin_pressed() -> void:
 		params.username = username
 		params.password = password
 		Gateway.signup_request(params)
+		Global.username = username
 
 func error_check() -> bool:
 	error_message.text = ""

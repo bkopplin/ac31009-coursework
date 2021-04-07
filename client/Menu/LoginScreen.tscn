@@ -75,6 +75,7 @@ text = "Username"
 margin_top = 123.0
 margin_right = 190.0
 margin_bottom = 151.0
+text = "fritz"
 
 [node name="MarginContainer2" type="MarginContainer" parent="LoginForm"]
 margin_top = 155.0
@@ -92,6 +93,7 @@ text = "Password"
 margin_top = 191.0
 margin_right = 190.0
 margin_bottom = 219.0
+text = "a"
 __meta__ = {
 "_edit_use_anchors_": false
 }

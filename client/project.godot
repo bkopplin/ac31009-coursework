@@ -24,6 +24,7 @@ config/icon="res://icon.png"
 GameServer="*res://Singletons/GameServer.gd"
 Gateway="*res://Singletons/Gateway.gd"
 Services="*res://Singletons/Services.gd"
+Global="*res://Singletons/Global.gd"
 
 [rendering]
 

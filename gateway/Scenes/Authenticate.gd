@@ -11,6 +11,7 @@ func connect_to_authserver() -> void:
 	network.create_client(ip, port)
 	get_tree().set_network_peer(network)
 	
+	
 	network.connect("connection_failed", self, "_on_connection_failed")
 	network.connect("connection_succeeded", self, "_on_connection_succeeded")
 
