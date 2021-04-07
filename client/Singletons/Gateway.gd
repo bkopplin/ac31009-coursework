@@ -5,6 +5,7 @@ var m_api: MultiplayerAPI
 var ip = "127.0.0.1"
 var port = 2000
 
+onready var menu: Node = get_node("/root/Menu")
 # var certificate = load("")
 
 func _process(delta: float) -> void:
@@ -14,7 +15,7 @@ func _process(delta: float) -> void:
 		return
 	custom_multiplayer.poll()
 
-func _create_network_api():
+func _create_network_api(callback: String, binds):
 	network = NetworkedMultiplayerENet.new()
 	m_api = MultiplayerAPI.new()
 #	network.set_dtls_enabled(true)
@@ -26,23 +27,39 @@ func _create_network_api():
 	custom_multiplayer.set_network_peer(network)
 	
 	network.connect("connection_failed", self, "_on_connection_failed")
-	network.connect("connection_succeeded", self, "_on_connection_succeeded")
+	network.connect("connection_succeeded", self, "_on_connection_succeeded", [callback, binds])
 
 func _on_connection_failed():
-	print("connection to gatewayserver failed")
+	print("connection to gateway failed")
 
-func _on_connection_succeeded():
-	pass
+func _on_connection_succeeded(callback: String, binds) -> void:
+	call(callback, binds)
+	print("connection to gateway succeeded")
 
-func login_request(username, password):
-	_create_network_api()
-	rpc_id(1, "login_request", username, password)
-
-
-func create_account(username, password):
-	_create_network_api()
-
-remote func return_login_results(token, error):
-	# if login request returns true, connect to server
+func _disconnect_api() -> void:
 	network.disconnect("connection_failed", self, "_on_connection_failed")
 	network.disconnect("connection_succeeded", self, "_on_connection_succeeded")
+
+func login_request(username: String, password: String) -> void:
+	_create_network_api("send_login_request", [username, password])
+
+
+func send_login_request(params: Array) -> void:
+	rpc_id(1, "login_request", params[0], params[1])
+	
+remote func return_login_results(token: String, result: bool):
+	print("return_login_results: token=" + token + ", result=" + str(result))
+	menu.return_auth_results(token, result)
+	_disconnect_api()
+
+func signup_request(params: Dictionary) -> void:
+	_create_network_api("send_signup_request", params)
+	
+func send_signup_request(params: Dictionary) -> void:
+	rpc_id(1, "signup_request", params)
+	print("signup request send")
+	
+remote func return_signup_results(token: String, result: bool) -> void:
+	print("return_signup_results: token=" + token + ", result=" + str(result))
+	menu.return_auth_results(token, result)
+	_disconnect_api()

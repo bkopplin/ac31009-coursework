@@ -1,0 +1,8 @@
+create user account
+010 - user account successfully created
+011 - user account already exists
+012 - database error
+
+get user data
+021 - user does not exist
+022 - database error

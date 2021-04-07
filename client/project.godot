@@ -16,7 +16,7 @@ _global_script_class_icons={
 [application]
 
 config/name="Client"
-run/main_scene="res://Menu/StartMenu.tscn"
+run/main_scene="res://Menu/Menu.tscn"
 config/icon="res://icon.png"
 
 [autoload]

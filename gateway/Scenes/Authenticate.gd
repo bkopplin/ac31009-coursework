@@ -20,9 +20,25 @@ func _on_connection_failed() -> void:
 func _on_connection_succeeded() -> void:
 	print("Successfully connected to authentication server")
 
+##############################
+# Login 
+##############################
+
 func login_request(username: String, password: String, player_id: int) -> void:
 	rpc_id(1, "login_request", username, password, player_id)
 
-remote func return_login_results(token: String, error: String, player_id: int) -> void:
+remote func return_login_results(token: String, result: bool, player_id: int) -> void:
 	print("received auth token " + str(token))
-	Gateway.return_login_results(token, error, player_id)
+	Gateway.return_login_results(token, result, player_id)
+
+##############################
+# Signup
+##############################
+
+func signup_request(options: Dictionary, player_id: int) -> void:
+	print("send signup request to auth server")
+	rpc_id(1, "signup_request", options, player_id)
+
+remote func return_signup_results(token: String, result: bool, player_id: int) -> void:
+	print("received signup results")
+	Gateway.return_signup_results(token, result, player_id)
