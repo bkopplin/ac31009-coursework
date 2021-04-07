@@ -37,8 +37,18 @@ func is_login_required() -> bool:
 
 func return_auth_results(token: String, result: bool) -> void:
 	if result:
-		changeto_playerList_screen()
 		Global.token = token
 		Services.connect_to_services()
 	else:
-		current_screen.request_failed()
+		current_screen.error_message("login failed")
+
+
+func return_service_connection_result(result) -> void:
+	if result:
+		changeto_playerList_screen()
+	else:
+		current_screen.error_message("cannot connect to Services")
+
+func update_available_players(players) -> void:
+	if current_screen == playerList_screen:
+		current_screen.update_available_players(players)

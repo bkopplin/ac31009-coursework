@@ -22,6 +22,7 @@ config/icon="res://icon.png"
 [autoload]
 
 Database="*res://Scenes/Database.gd"
+TokenTransfer="*res://Scenes/TokenTransfer.gd"
 
 [rendering]
 

@@ -31,7 +31,21 @@ func _on_connection_failed():
 
 func _on_connection_succeeded() -> void:
 	print("connection to Services succeeded, sending token and username")
-	rpc_id(1, "push_auth", Global.token, Global.username)
+	rpc_id(1, "verify", Global.token, Global.username)
+
+
+remote func return_verification_result(result) -> void:
+	print("return_verification_result")
+	menu.return_service_connection_result(result)
+
+
+func fetch_available_players() -> void:
+	print("fetch available players")
+	rpc_id(1, "fetch_available_players")
+
+
+remote func update_available_players(players: Array) -> void:
+	menu.update_available_players(players)
 
 func disconnect_from_services() -> void:
 	if network.is_connected("connection_failed", self, "_on_connection_failed"):

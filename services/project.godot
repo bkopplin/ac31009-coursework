@@ -19,6 +19,13 @@ config/name="Services"
 run/main_scene="res://Scenes/Services.tscn"
 config/icon="res://icon.png"
 
+[autoload]
+
+Services="*res://Scenes/Services.gd"
+TokenTransfer="*res://Scenes/TokenTransfer.gd"
+PlayerVerification="*res://Scenes/PlayerVerification.gd"
+PlayerManager="*res://Scenes/PlayerManager.gd"
+
 [rendering]
 
 environment/default_environment="res://default_env.tres"

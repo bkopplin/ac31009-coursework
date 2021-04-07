@@ -40,6 +40,7 @@ func error_check() -> bool:
 		error_dialog.hide()
 		return false
 
-func request_failed() -> void:
-	error_message.text = "login failed"
+func error_message(message: String) -> void:
+	error_message.text = message
 	error_dialog.show()
+
