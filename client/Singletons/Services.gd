@@ -115,3 +115,7 @@ remote func push_invite_rejected(invitation: Dictionary):
 remote func start_lobby(lobby_state: Dictionary) -> void:
 	print("start_lobby: " + str(lobby_state))
 	emit_signal("start_lobby", lobby_state)
+
+func ready_button_pressed(lobby_id: int, is_ready: bool) -> void:
+	print("sending start game")
+	rpc_id(0, "ready_button_pressed", lobby_id, is_ready)

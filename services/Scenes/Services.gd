@@ -97,4 +97,7 @@ remote func accept_invite(invitation: Dictionary) -> void:
 func start_lobby(client_id: int, lobby_state: Dictionary) -> void:
 	print("sending start lobby to " + str(client_id))
 	rpc_id(client_id, "start_lobby", lobby_state)
-	
+
+remote func ready_button_pressed(lobby_id: int, is_ready: bool) -> void:
+	var client_id = custom_multiplayer.get_rpc_sender_id()
+	LobbyManager.start_game(lobby_id, is_ready, client_id)
