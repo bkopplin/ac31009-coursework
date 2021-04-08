@@ -27,12 +27,14 @@ func get_selected_item(list: ItemList) -> String:
 	return selected
 
 func error_message(message: String) -> void:
-	print(message)
+	error_label.text = message
+
 
 func _on_Services_return_verification_result(result) -> void:
 	username_label.text = "Logged in as " + Global.username if result else "not logged in"
+	error_message("")
 
-func _on_Services_update_available_players(players: Array) -> void:
+func update_available_players(players: Array) -> void:
 	print("PlayerList: update_available_players: players: " + str(players))
 	available_players.clear()
 	players.erase(Global.username)
@@ -68,5 +70,9 @@ func show_invitation() -> void:
 	if not invitation_dialog.visible and invitation_queue.size() > 0:
 		invitation_dialog.visible = true
 		invitation_label.text =  invitation_template % invitation_queue[0].inviter
-	
+
+
+func _on_Services_services_disconnected() -> void:
+	update_available_players([])
+	error_message("Services disconnected")
 	

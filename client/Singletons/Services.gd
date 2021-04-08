@@ -1,5 +1,6 @@
 extends Node
 
+signal services_disconnected
 signal return_verification_result
 signal update_available_players
 signal invitation_received
@@ -16,8 +17,10 @@ var ip = "127.0.0.1"
 var port = 2002
 
 func _ready() -> void:
+	self.connect("services_disconnected", playerList_screen, "_on_Services_services_disconnected")
 	self.connect("return_verification_result", menu, "_on_Services_return_verification_result")
-	self.connect("update_available_players", playerList_screen, "_on_Services_update_available_players")
+	self.connect("return_verification_result", playerList_screen, "_on_Services_return_verification_result")
+	self.connect("update_available_players", playerList_screen, "update_available_players")
 	self.connect("invitation_received", playerList_screen, "_on_Services_invitation_received")
 	self.connect("invitation_rejected", playerList_screen, "_on_Services_invitation_rejected")
 	self.connect("start_lobby", lobby_screen, "_on_Services_start_lobby")
@@ -53,7 +56,9 @@ func _on_connection_succeeded() -> void:
 
 func _on_server_disconnected() -> void:
 	print("Services Server disconnected, attempting to reconnect")
+	emit_signal("services_disconnected")
 	connect_to_services()
+	
 
 func disconnect_from_services() -> void:
 	if network.is_connected("connection_failed", self, "_on_connection_failed"):
