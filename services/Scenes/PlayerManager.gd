@@ -1,6 +1,7 @@
 extends Node
 
 var available_players: Dictionary # {username: client_id}
+var invitations: Dictionary # {sender: {timestamp, receiver}}
 
 func player_connected(username: String, client_id: int):
 	available_players[username] = client_id
@@ -31,3 +32,29 @@ func get_username(_player_id: int) -> String:
 		if available_players[username] == _player_id:
 			return username
 	return ""
+
+func invite(_inviter: String, _invitee: String, _inviter_id: int) -> void:
+	var invitation: Dictionary
+	invitation.inviter = _inviter
+	invitation.invitee = _invitee
+	invitation.inviter_id = _inviter_id
+	invitation.invitee_id = available_players[_invitee]
+	invitation.message = ""
+	invitation.timestamp = OS.get_system_time_secs()
+	
+	if invitation.inviter == invitation.invitee:
+		invitation.message = "you cannot invite yourself"
+		Services.send_reject_invite(invitation)
+		return
+		
+	if invitation.invitee_id <= 0:
+		invitation.message = str(invitation.invitee) + " is not available on server"
+		Services.send_reject_invite(invitation)
+		return
+	
+	var invitation_id = gen_invitation_id(invitation.inviter, invitation.invitee)
+	invitations[invitation_id] = invitation
+	Services.send_invitation(invitation)
+
+func gen_invitation_id(inviter: String, invitee: String) -> String:
+	return str(inviter) + "+" + str(invitee)

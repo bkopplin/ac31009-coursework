@@ -28,8 +28,9 @@ func _connect_to_token_transfer():
 	network.connect("server_disconnected", self, "_reconnect")
 
 func _on_connection_failed() -> void:
-	_reconnect()
 	print("connection to Authentication Server failed")
+	_reconnect()
+
 
 func _on_connection_succeeded() -> void:
 	print("connection to Authentication Server succeeded")

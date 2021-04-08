@@ -2,6 +2,8 @@ extends Node
 
 signal return_verification_result
 signal update_available_players
+signal invitation_received
+signal invitation_rejected
 
 onready var playerList_screen: = get_node("/root/Menu/PlayerList")
 onready var lobby_screen: = get_node("/root/Menu/Lobby")
@@ -15,6 +17,8 @@ var port = 2002
 func _ready() -> void:
 	self.connect("return_verification_result", menu, "_on_Services_return_verification_result")
 	self.connect("update_available_players", playerList_screen, "_on_Services_update_available_players")
+	self.connect("invitation_received", playerList_screen, "_on_Services_invitation_received")
+	self.connect("invitation_rejected", playerList_screen, "_on_Services_invitation_rejected")
 	
 func _process(delta: float) -> void:
 	if get_custom_multiplayer() == null:
@@ -43,10 +47,23 @@ func _on_connection_succeeded() -> void:
 	rpc_id(1, "verify", Global.token, Global.username)
 
 
+func disconnect_from_services() -> void:
+	if network.is_connected("connection_failed", self, "_on_connection_failed"):
+		network.disconnect("connection_failed", self, "_on_connection_failed")
+	if network.is_connected("connection_succeeded", self, "_on_connection_succeeded"):
+		network.disconnect("connection_succeeded", self, "_on_connection_succeeded")
+
+#############################
+# Verification
+#############################
+
 remote func return_verification_result(result) -> void:
 	print("return_verification_result")
 	emit_signal("return_verification_result", result)
 
+#############################
+# update player list
+#############################
 
 func fetch_available_players() -> void:
 	print("fetch available players")
@@ -56,10 +73,25 @@ func fetch_available_players() -> void:
 remote func update_available_players(players: Array) -> void:
 	print("Services: update_available_players: received players: " + str(players))
 	emit_signal("update_available_players", players)
-#	menu.update_available_players(players)
 
-func disconnect_from_services() -> void:
-	if network.is_connected("connection_failed", self, "_on_connection_failed"):
-		network.disconnect("connection_failed", self, "_on_connection_failed")
-	if network.is_connected("connection_succeeded", self, "_on_connection_succeeded"):
-		network.disconnect("connection_succeeded", self, "_on_connection_succeeded")
+###############################
+# invitations
+###############################
+
+func invite(username: String) -> void:
+	rpc_id(0, "invite", Global.username, username)
+
+remote func push_invite(invitation: Dictionary) -> void:
+	print("Services: push_invite: invitation received")
+	emit_signal("invitation_received", invitation)
+
+func reject_invitation(invitation: Dictionary) -> void:
+	rpc_id(0, "reject_invite", invitation)
+
+func accept_invitation(invitation: Dictionary) -> void:
+	rpc_id(0, "accept_invite", invitation)
+
+remote func push_invite_rejected(invitation: Dictionary):
+	emit_signal("invitation_rejected", invitation)
+
+
