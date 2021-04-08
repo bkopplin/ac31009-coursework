@@ -45,6 +45,7 @@ remote func login_request(username: String, password: String) -> void:
 
 func return_login_results(token: String, result: bool, player_id: int) -> void:
 	rpc_id(player_id, "return_login_results", token, result)
+	network.disconnect_peer(player_id)
 
 
 remote func signup_request(params: Dictionary) -> void:
@@ -55,3 +56,4 @@ remote func signup_request(params: Dictionary) -> void:
 func return_signup_results(token: String, result: bool, player_id: int) -> void:
 	print("returning singup results")
 	rpc_id(player_id, "return_signup_results", token, result)
+	network.disconnect_peer(player_id)

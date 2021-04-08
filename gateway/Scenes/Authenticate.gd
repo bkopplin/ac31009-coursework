@@ -11,15 +11,22 @@ func connect_to_authserver() -> void:
 	network.create_client(ip, port)
 	get_tree().set_network_peer(network)
 	
-	
+	print("attempting connection to Authentication Server")
 	network.connect("connection_failed", self, "_on_connection_failed")
 	network.connect("connection_succeeded", self, "_on_connection_succeeded")
+	network.connect("server_disconnected", self, "_reconnect")
 
 func _on_connection_failed() -> void:
 	print("Failed to connect to authentication server")
+	_reconnect()
 
 func _on_connection_succeeded() -> void:
 	print("Successfully connected to authentication server")
+
+
+func _reconnect() -> void:	
+	network.close_connection()
+	connect_to_authserver()
 
 ##############################
 # Login 
@@ -43,3 +50,7 @@ func signup_request(options: Dictionary, player_id: int) -> void:
 remote func return_signup_results(token: String, result: bool, player_id: int) -> void:
 	print("received signup results")
 	Gateway.return_signup_results(token, result, player_id)
+
+
+func _on_ConnectionTimer_timeout() -> void:
+	connect_to_authserver()

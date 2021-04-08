@@ -20,3 +20,5 @@ func update_available_players(players: Array):
 	for player in players:
 		available_players.add_item(player)
 
+func error_message(message: String) -> void:
+	print(message)

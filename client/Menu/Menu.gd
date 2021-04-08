@@ -52,3 +52,6 @@ func return_service_connection_result(result) -> void:
 func update_available_players(players) -> void:
 	if current_screen == playerList_screen:
 		current_screen.update_available_players(players)
+
+func _on_login_results_received():
+	print("login results in menu received with signals")

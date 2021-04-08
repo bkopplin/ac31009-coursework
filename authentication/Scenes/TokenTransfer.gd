@@ -39,8 +39,13 @@ func _on_peer_disconnected(client_id) -> void:
 
 func send_token(token, username) -> void:
 	var service = get_best_service()
-	rpc_id(service, "receive_token", token, username)
+	if service >= 0:
+		rpc_id(service, "receive_token", token, username)
+	else:
+		print("Error: no Service server connected to TokenTransfer")
 
 func get_best_service() -> int:
 	# TODO implement load-balancing for services and redirect players to appropriate Server
-	return connected_services[0]
+	if connected_services.size() > 0:
+		return connected_services[0]
+	return -1

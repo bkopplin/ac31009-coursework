@@ -44,3 +44,5 @@ func error_message(message: String) -> void:
 	error_message.text = message
 	error_dialog.show()
 
+func _on_login_results_received():
+	print("on login results: signals are working")

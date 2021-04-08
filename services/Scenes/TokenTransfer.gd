@@ -6,7 +6,7 @@ var ip = "127.0.0.1"
 var port = 2003
 
 func _ready() -> void:
-	_create_network_api()
+	_connect_to_token_transfer()
 
 func _process(delta: float) -> void:
 	if get_custom_multiplayer() == null:
@@ -15,7 +15,7 @@ func _process(delta: float) -> void:
 		return
 	custom_multiplayer.poll()
 
-func _create_network_api():
+func _connect_to_token_transfer():
 	network = NetworkedMultiplayerENet.new()
 	m_api = MultiplayerAPI.new()
 	network.create_client(ip, port)
@@ -25,12 +25,19 @@ func _create_network_api():
 	
 	network.connect("connection_failed", self, "_on_connection_failed")
 	network.connect("connection_succeeded", self, "_on_connection_succeeded")
+	network.connect("server_disconnected", self, "_reconnect")
 
 func _on_connection_failed() -> void:
+	_reconnect()
 	print("connection to Authentication Server failed")
 
 func _on_connection_succeeded() -> void:
 	print("connection to Authentication Server succeeded")
+
+func _reconnect() -> void:
+	print("attempting to reconnect to TokenTranfer")
+	network.close_connection()
+	_connect_to_token_transfer()
 
 remote func receive_token(token: String, username: String) -> void:
 	PlayerVerification.add_token(token, username)
