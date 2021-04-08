@@ -1,17 +1,25 @@
 extends Node
 
+signal login_result_received
+signal signup_result_received
+
+onready var login_screen = get_node("/root/Menu/LoginScreen")
+onready var signup_screen = get_node("/root/Menu/SignupScreen")
+
+
 var network: NetworkedMultiplayerENet
 var m_api: MultiplayerAPI
 var ip = "127.0.0.1"
 var port = 2000
 
-signal login_results_received
+
 
 onready var menu: Node = get_node("/root/Menu")
 # var certificate = load("")
 
 func _ready() -> void:
-	self.connect("login_results_received", get_node("/root/Menu/SignupdfgdfgScreen"), "_on_login_results_received")
+	self.connect("login_result_received", login_screen, "_on_login_result_received")
+	self.connect("signup_result_received", signup_screen, "_on_signup_result_received")
 
 func _process(delta: float) -> void:
 	if get_custom_multiplayer() == null:
@@ -51,15 +59,15 @@ func _disconnect_from_gateway() -> void:
 func login_request(username: String, password: String) -> void:
 	_connect_to_gateway("send_login_request", [username, password])
 
-
 func send_login_request(params: Array) -> void:
 	rpc_id(1, "login_request", params[0], params[1])
 	
 remote func return_login_results(token: String, result: bool):
 	print("return_login_results: token=" + token + ", result=" + str(result))
-	emit_signal("login_results_received")
+	emit_signal("login_result_received", token, result)
 	# menu.return_auth_results(token, result)
 	_disconnect_from_gateway()
+
 
 func signup_request(params: Dictionary) -> void:
 	_connect_to_gateway("send_signup_request", params)
@@ -70,5 +78,6 @@ func send_signup_request(params: Dictionary) -> void:
 	
 remote func return_signup_results(token: String, result: bool) -> void:
 	print("return_signup_results: token=" + token + ", result=" + str(result))
-	menu.return_auth_results(token, result)
+	emit_signal("signup_result_received", token, result)
+#	menu.return_auth_results(token, result)
 	_disconnect_from_gateway()

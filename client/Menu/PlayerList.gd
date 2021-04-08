@@ -3,7 +3,7 @@ extends Control
 onready var available_players = get_node("AvailablePlayers")
 
 func _ready() -> void:
-	Services.fetch_available_players()
+	pass
 
 
 func _on_InviteButton_pressed() -> void:
@@ -14,11 +14,14 @@ func _on_InviteButton_pressed() -> void:
 	print(selected)
 
 
-func update_available_players(players: Array):
-	#players.erase(Global.username)
+func error_message(message: String) -> void:
+	print(message)
+
+func _on_Services_update_available_players(players: Array) -> void:
+	print("PlayerList: update_available_players: players: " + str(players))
 	available_players.clear()
 	for player in players:
 		available_players.add_item(player)
 
-func error_message(message: String) -> void:
-	print(message)
+func test():
+	print("test")

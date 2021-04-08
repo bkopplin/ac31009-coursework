@@ -44,5 +44,10 @@ func error_message(message: String) -> void:
 	error_message.text = message
 	error_dialog.show()
 
-func _on_login_results_received():
-	print("on login results: signals are working")
+func _on_login_result_received(token, result):
+	print("LoginScreen: in _on_login_results_received: results: " + str(result))
+	if result:
+		Global.token = token
+		Services.connect_to_services()
+	else:
+		error_message("login failed")

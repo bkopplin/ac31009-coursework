@@ -57,5 +57,10 @@ func error_message(message: String) -> void:
 	error_message.text = message
 	error_dialog.show()
 
-func _on_login_results_received():
-	print("on login results: signals are working, in Signup Screen")
+func _on_signup_result_received(token, result):
+	print("SignupScreen: in _on_signup_result_received: results: " + str(result))
+	if result:
+		Global.token = token
+		Services.connect_to_services()
+	else:
+		error_message("Signup failed")

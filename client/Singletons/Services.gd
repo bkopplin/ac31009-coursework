@@ -1,12 +1,21 @@
 extends Node
 
+signal return_verification_result
+signal update_available_players
+
+onready var playerList_screen: = get_node("/root/Menu/PlayerList")
+onready var lobby_screen: = get_node("/root/Menu/Lobby")
+onready var menu: = get_node("/root/Menu")
+
 var network: NetworkedMultiplayerENet
 var m_api: MultiplayerAPI
 var ip = "127.0.0.1"
 var port = 2002
 
-onready var menu: Node = get_node("/root/Menu")
-
+func _ready() -> void:
+	self.connect("return_verification_result", menu, "_on_Services_return_verification_result")
+	self.connect("update_available_players", playerList_screen, "_on_Services_update_available_players")
+	
 func _process(delta: float) -> void:
 	if get_custom_multiplayer() == null:
 		return
@@ -36,7 +45,7 @@ func _on_connection_succeeded() -> void:
 
 remote func return_verification_result(result) -> void:
 	print("return_verification_result")
-	menu.return_service_connection_result(result)
+	emit_signal("return_verification_result", result)
 
 
 func fetch_available_players() -> void:
@@ -45,7 +54,9 @@ func fetch_available_players() -> void:
 
 
 remote func update_available_players(players: Array) -> void:
-	menu.update_available_players(players)
+	print("Services: update_available_players: received players: " + str(players))
+	emit_signal("update_available_players", players)
+#	menu.update_available_players(players)
 
 func disconnect_from_services() -> void:
 	if network.is_connected("connection_failed", self, "_on_connection_failed"):
