@@ -56,7 +56,7 @@ func _on_AcceptInviteButton_pressed() -> void:
 	var invitation = invitation_queue.pop_front()
 	Services.accept_invitation(invitation)
 	invitation_dialog.visible = false
-	
+	show_invitation()
 
 func _on_RejectInviteButton_pressed() -> void:
 	var invitation = invitation_queue.pop_front()

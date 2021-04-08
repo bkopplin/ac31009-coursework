@@ -58,3 +58,8 @@ func invite(_inviter: String, _invitee: String, _inviter_id: int) -> void:
 
 func gen_invitation_id(inviter: String, invitee: String) -> String:
 	return str(inviter) + "+" + str(invitee)
+
+func remove_invitation(invitation: Dictionary) -> void:
+	var invitation_id = gen_invitation_id(invitation.inviter, invitation.invitee)
+	invitations.erase(invitation_id)
+	print("invitation removed")

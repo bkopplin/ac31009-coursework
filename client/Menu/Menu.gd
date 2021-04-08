@@ -49,3 +49,5 @@ func _on_Services_return_verification_result(result) -> void:
 	else:
 		current_screen.error_message("cannot connect to Services")
 
+func _on_Services_start_lobby(_lobby_state) -> void:
+	change_current_screen(lobby_screen)

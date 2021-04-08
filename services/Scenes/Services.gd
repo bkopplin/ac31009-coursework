@@ -84,5 +84,17 @@ func send_reject_invite(invitation: Dictionary):
 remote func reject_invite(invitation: Dictionary) -> void:
 	send_reject_invite(invitation)
 
+remote func accept_invitation(invitation: Dictionary) -> void:
+	print("invitation accepted")
+#	PlayerManager.remove_invitation(invitation)
+	LobbyManager.start_lobby(invitation)
+
 remote func accept_invite(invitation: Dictionary) -> void:
 	print("invitation accepted: " + str(invitation))
+	PlayerManager.remove_invitation(invitation)
+	LobbyManager.start_lobby(invitation)
+
+func start_lobby(client_id: int, lobby_state: Dictionary) -> void:
+	print("sending start lobby to " + str(client_id))
+	rpc_id(client_id, "start_lobby", lobby_state)
+	

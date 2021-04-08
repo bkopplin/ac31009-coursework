@@ -25,6 +25,7 @@ Services="*res://Scenes/Services.gd"
 TokenTransfer="*res://Scenes/TokenTransfer.gd"
 PlayerVerification="*res://Scenes/PlayerVerification.gd"
 PlayerManager="*res://Scenes/PlayerManager.gd"
+LobbyManager="*res://Scenes/LobbyManager.gd"
 
 [rendering]
 
