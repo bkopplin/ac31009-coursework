@@ -16,17 +16,17 @@ _global_script_class_icons={
 [application]
 
 config/name="Services"
-run/main_scene="res://Scenes/Services.tscn"
+run/main_scene="res://Scenes/Main.tscn"
 config/icon="res://icon.png"
 
 [autoload]
 
-Services="*res://Scenes/Services.gd"
-TokenTransfer="*res://Scenes/TokenTransfer.gd"
-PlayerVerification="*res://Scenes/PlayerVerification.gd"
-PlayerManager="*res://Scenes/PlayerManager.gd"
-LobbyManager="*res://Scenes/LobbyManager.gd"
-GameServerServices="*res://Scenes/GameServerServices.gd"
+Services="*res://Singletons/Services.gd"
+TokenTransfer="*res://Singletons/TokenTransfer.gd"
+PlayerVerification="*res://Singletons/PlayerVerification.gd"
+PlayerManager="*res://Singletons/PlayerManager.gd"
+LobbyManager="*res://Singletons/LobbyManager.gd"
+GameServerServices="*res://Singletons/GameServerServices.gd"
 
 [rendering]
 

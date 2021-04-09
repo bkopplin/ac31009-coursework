@@ -1,0 +1,22 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Scenes/Levels/GroundTileSet.tres" type="TileSet" id=1]
+[ext_resource path="res://Scenes/Levels/1.gd" type="Script" id=2]
+
+[node name="World" type="Node2D"]
+script = ExtResource( 2 )
+
+[node name="Ground" type="TileMap" parent="."]
+scale = Vector2( 0.5, 0.5 )
+tile_set = ExtResource( 1 )
+cell_size = Vector2( 128, 128 )
+format = 1
+tile_data = PoolIntArray( 458752, 2, 65536, 458753, 2, 65536, 458754, 2, 65536, 458755, 2, 65536, 458756, 2, 65536, 458757, 2, 65536, 458758, 2, 65536, 458759, 2, 65536, 458762, 2, 65536, 458763, 2, 65536, 458764, 2, 65536, 458765, 2, 65536, 458766, 2, 65536, 524288, 2, 1, 524289, 2, 1, 524290, 2, 1, 524291, 2, 1, 524292, 2, 1, 524293, 2, 1, 524294, 2, 1, 524295, 2, 1, 524298, 2, 1, 524299, 2, 1, 524300, 2, 1, 524301, 2, 1, 524302, 2, 1, 589824, 2, 1, 589825, 2, 1, 589826, 2, 1, 589827, 2, 1, 589828, 2, 1, 589829, 2, 1, 589830, 2, 1, 589831, 2, 1, 589834, 2, 1, 589835, 2, 1, 589836, 2, 1, 589837, 2, 1, 589838, 2, 1, 655360, 2, 1, 655361, 2, 1, 655362, 2, 1, 655363, 2, 1, 655364, 2, 1, 655365, 2, 1, 655366, 2, 1, 655367, 2, 1, 655370, 2, 1, 655371, 2, 1, 655372, 2, 1, 655373, 2, 1, 655374, 2, 1 )
+
+[node name="SpawnPoints" type="Node2D" parent="."]
+
+[node name="SpawnBlue" type="Node2D" parent="SpawnPoints"]
+position = Vector2( 738.555, 318.051 )
+
+[node name="SpawnGreen" type="Node2D" parent="SpawnPoints"]
+position = Vector2( 244.106, 399.123 )

@@ -6,10 +6,12 @@ signal update_available_players
 signal invitation_received
 signal invitation_rejected
 signal start_lobby
+signal pre_configure_game
 
-onready var playerList_screen: = get_node("/root/Menu/PlayerList")
-onready var lobby_screen: = get_node("/root/Menu/Lobby")
-onready var menu: = get_node("/root/Menu")
+onready var playerList_screen: = get_node("/root/Main/Menu/PlayerList")
+onready var lobby_screen: = get_node("/root/Main/Menu/Lobby")
+onready var menu: = get_node("/root/Main/Menu")
+onready var game_manager: = get_node("/root/Main/GameManager")
 
 var network: NetworkedMultiplayerENet
 var m_api: MultiplayerAPI
@@ -25,6 +27,7 @@ func _ready() -> void:
 	self.connect("invitation_rejected", playerList_screen, "_on_Services_invitation_rejected")
 	self.connect("start_lobby", lobby_screen, "_on_Services_start_lobby")
 	self.connect("start_lobby", menu, "_on_Services_start_lobby")
+	self.connect("pre_configure_game", game_manager, "_on_pre_configure_game")
 	
 func _process(delta: float) -> void:
 	if get_custom_multiplayer() == null:
@@ -119,3 +122,14 @@ remote func start_lobby(lobby_state: Dictionary) -> void:
 func ready_button_pressed(lobby_id: int, is_ready: bool) -> void:
 	print("sending start game")
 	rpc_id(0, "ready_button_pressed", lobby_id, is_ready)
+
+##################################
+# Game
+##################################
+
+remote func pre_configure_game():
+	print("pre_configuring_game")
+	emit_signal("pre_configure_game")
+
+func done_preconfiguring():
+	rpc_id(1, "done_preconfiguring")

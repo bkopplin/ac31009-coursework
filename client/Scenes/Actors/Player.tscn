@@ -1,0 +1,17 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Scenes/Actors/Player.gd" type="Script" id=1]
+[ext_resource path="res://assets/Base pack/Player/p1_stand.png" type="Texture" id=2]
+[ext_resource path="res://assets/Base pack/Player/p2_stand.png" type="Texture" id=3]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 27.5, 46 )
+
+[node name="Player" type="KinematicBody2D"]
+script = ExtResource( 1 )
+texture_green = ExtResource( 2 )
+texture_blue = ExtResource( 3 )
+gravity = 2500
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 1 )

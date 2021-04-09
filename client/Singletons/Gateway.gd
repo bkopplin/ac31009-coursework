@@ -3,8 +3,8 @@ extends Node
 signal login_result_received
 signal signup_result_received
 
-onready var login_screen = get_node("/root/Menu/LoginScreen")
-onready var signup_screen = get_node("/root/Menu/SignupScreen")
+onready var login_screen = get_node("/root/Main/Menu/LoginScreen")
+onready var signup_screen = get_node("/root/Main/Menu/SignupScreen")
 
 
 var network: NetworkedMultiplayerENet
@@ -14,7 +14,7 @@ var port = 2000
 
 
 
-onready var menu: Node = get_node("/root/Menu")
+onready var menu: Node = get_node("/root/Main/Menu")
 # var certificate = load("")
 
 func _ready() -> void:

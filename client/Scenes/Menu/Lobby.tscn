@@ -1,0 +1,188 @@
+[gd_scene load_steps=11 format=2]
+
+[ext_resource path="res://Scenes/Menu/Lobby.gd" type="Script" id=1]
+[ext_resource path="res://UserInterfaceElements/defaultTheme.tres" type="Theme" id=2]
+[ext_resource path="res://assets/uipack/PNG/green_button01.png" type="Texture" id=3]
+[ext_resource path="res://assets/uipack/PNG/blue_button01.png" type="Texture" id=4]
+[ext_resource path="res://assets/uipack/PNG/red_button00.png" type="Texture" id=5]
+[ext_resource path="res://assets/uipack/PNG/red_button01.png" type="Texture" id=6]
+[ext_resource path="res://assets/Base pack/HUD/hud_p1.png" type="Texture" id=7]
+[ext_resource path="res://assets/Base pack/HUD/hud_p3.png" type="Texture" id=8]
+[ext_resource path="res://assets/uipack/PNG/grey_button13.png" type="Texture" id=9]
+[ext_resource path="res://UserInterfaceElements/text_error.tres" type="DynamicFont" id=10]
+
+
+
+
+[node name="Lobby" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme = ExtResource( 2 )
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0.2, 0.211765, 0.270588, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ControlContainer" type="HBoxContainer" parent="."]
+anchor_right = 1.0
+margin_left = 20.0
+margin_top = 20.0
+margin_right = -20.0
+margin_bottom = 65.0
+alignment = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="GoBackButton" type="TextureButton" parent="ControlContainer"]
+margin_right = 190.0
+margin_bottom = 45.0
+texture_normal = ExtResource( 5 )
+texture_pressed = ExtResource( 6 )
+
+[node name="Label" type="Label" parent="ControlContainer/GoBackButton"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+text = "back"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MarginContainer" type="MarginContainer" parent="ControlContainer"]
+margin_left = 194.0
+margin_right = 790.0
+margin_bottom = 45.0
+size_flags_horizontal = 3
+
+[node name="StartGameButton" type="TextureButton" parent="ControlContainer"]
+margin_left = 794.0
+margin_right = 984.0
+margin_bottom = 45.0
+toggle_mode = true
+texture_normal = ExtResource( 3 )
+texture_pressed = ExtResource( 4 )
+stretch_mode = 1
+
+[node name="Label" type="Label" parent="ControlContainer/StartGameButton"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 1.05957
+margin_right = 1.05957
+text = "Ready?"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="LevelList" type="ItemList" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -127.362
+margin_top = -170.27
+margin_right = 138.638
+margin_bottom = 152.73
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PlayerArea" type="HBoxContainer" parent="."]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -504.584
+margin_top = -89.1299
+margin_right = 519.416
+margin_bottom = -20.1299
+custom_constants/separation = 20
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MarginContainer2" type="MarginContainer" parent="PlayerArea"]
+margin_right = 197.0
+margin_bottom = 69.0
+size_flags_horizontal = 3
+
+[node name="PlayerLocalContainer" type="VBoxContainer" parent="PlayerArea"]
+margin_left = 217.0
+margin_right = 467.0
+margin_bottom = 69.0
+rect_min_size = Vector2( 250, 0 )
+
+[node name="CharacterLocalContainer" type="TextureRect" parent="PlayerArea/PlayerLocalContainer"]
+margin_right = 250.0
+margin_bottom = 47.0
+texture = ExtResource( 7 )
+stretch_mode = 4
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PlayerLocalName" type="Label" parent="PlayerArea/PlayerLocalContainer"]
+margin_top = 51.0
+margin_right = 250.0
+margin_bottom = 69.0
+text = "player234"
+align = 1
+
+[node name="SwapCharacters" type="TextureButton" parent="PlayerArea"]
+margin_left = 487.0
+margin_right = 536.0
+margin_bottom = 69.0
+texture_normal = ExtResource( 9 )
+stretch_mode = 3
+
+[node name="PlayerGuestContainer" type="VBoxContainer" parent="PlayerArea"]
+margin_left = 556.0
+margin_right = 806.0
+margin_bottom = 69.0
+rect_min_size = Vector2( 250, 0 )
+
+[node name="PlayerGuestContainer" type="TextureRect" parent="PlayerArea/PlayerGuestContainer"]
+margin_right = 250.0
+margin_bottom = 47.0
+texture = ExtResource( 8 )
+stretch_mode = 4
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PlayerGuestName" type="Label" parent="PlayerArea/PlayerGuestContainer"]
+margin_top = 51.0
+margin_right = 250.0
+margin_bottom = 69.0
+text = "superstrongenemy"
+align = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="PlayerArea"]
+margin_left = 826.0
+margin_right = 1024.0
+margin_bottom = 69.0
+size_flags_horizontal = 3
+
+[node name="ErrorLabel" type="Label" parent="."]
+margin_left = 20.8108
+margin_top = 181.0
+margin_right = 224.811
+margin_bottom = 418.0
+custom_fonts/font = ExtResource( 10 )
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+[connection signal="pressed" from="ControlContainer/StartGameButton" to="." method="_on_StartGameButton_pressed"]
+[connection signal="item_selected" from="LevelList" to="." method="_on_LevelList_item_selected"]
