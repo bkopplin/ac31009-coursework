@@ -8,8 +8,14 @@ func _ready() -> void:
 	set_physics_process(false)
 	game_manager.visible = false
 	
-	set_physics_process(true)
-	game_manager._on_pre_configure_game(1, 1)
+	#set_physics_process(true)
+	#var temp = {}
+	#temp.game_id = "3434234324"
+	#temp.players = [{"username": "player1", "id": "111111111", "colour": "green"}, {"username": "player2", "id": "222222222222222", "colour": "blue"}]
+	#temp.selected_level = "2"
+	#Global.username = "player1"
+	#game_manager._on_pre_configure_game(temp)
+	Services.connect_to_services()
 
 func start_game():
 	menu.visible = false

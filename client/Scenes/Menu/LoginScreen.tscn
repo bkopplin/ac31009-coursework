@@ -1,14 +1,10 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://assets/uipack/PNG/blue_button01.png" type="Texture" id=1]
 [ext_resource path="res://assets/uipack/PNG/blue_button00.png" type="Texture" id=2]
 [ext_resource path="res://UserInterfaceElements/defaultTheme.tres" type="Theme" id=3]
 [ext_resource path="res://UserInterfaceElements/heading1.tres" type="DynamicFont" id=4]
 [ext_resource path="res://Scenes/Menu/LoginScreen.gd" type="Script" id=5]
-[ext_resource path="res://UserInterfaceElements/text_error.tres" type="DynamicFont" id=6]
-
-
-
 
 [node name="LoginScreen" type="Control"]
 anchor_right = 1.0
@@ -40,77 +36,70 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="ErrorMessage" type="Label" parent="LoginForm"]
-margin_right = 190.0
-margin_bottom = 18.0
-custom_fonts/font = ExtResource( 6 )
-text = "Error"
-
 [node name="MarginContainer4" type="MarginContainer" parent="LoginForm"]
-margin_top = 22.0
 margin_right = 190.0
-margin_bottom = 37.0
+margin_bottom = 15.0
 rect_min_size = Vector2( 0, 15 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Title" type="Label" parent="LoginForm"]
-margin_top = 41.0
+margin_top = 19.0
 margin_right = 190.0
-margin_bottom = 73.0
+margin_bottom = 51.0
 custom_fonts/font = ExtResource( 4 )
 text = "Login"
 
 [node name="MarginContainer3" type="MarginContainer" parent="LoginForm"]
-margin_top = 77.0
+margin_top = 55.0
 margin_right = 190.0
-margin_bottom = 97.0
+margin_bottom = 75.0
 rect_min_size = Vector2( 0, 20 )
 
 [node name="LabelUsername" type="Label" parent="LoginForm"]
-margin_top = 101.0
+margin_top = 79.0
 margin_right = 190.0
-margin_bottom = 119.0
+margin_bottom = 97.0
 text = "Username"
 
 [node name="Username" type="LineEdit" parent="LoginForm"]
-margin_top = 123.0
+margin_top = 101.0
 margin_right = 190.0
-margin_bottom = 151.0
+margin_bottom = 129.0
 text = "fritz"
 
 [node name="MarginContainer2" type="MarginContainer" parent="LoginForm"]
-margin_top = 155.0
+margin_top = 133.0
 margin_right = 190.0
-margin_bottom = 165.0
+margin_bottom = 143.0
 rect_min_size = Vector2( 0, 10 )
 
 [node name="LabelPassword" type="Label" parent="LoginForm"]
-margin_top = 169.0
+margin_top = 147.0
 margin_right = 190.0
-margin_bottom = 187.0
+margin_bottom = 165.0
 text = "Password"
 
 [node name="Password" type="LineEdit" parent="LoginForm"]
-margin_top = 191.0
+margin_top = 169.0
 margin_right = 190.0
-margin_bottom = 219.0
+margin_bottom = 197.0
 text = "a"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="MarginContainer" type="MarginContainer" parent="LoginForm"]
-margin_top = 223.0
+margin_top = 201.0
 margin_right = 190.0
-margin_bottom = 253.0
+margin_bottom = 231.0
 rect_min_size = Vector2( 0, 30 )
 
 [node name="ButtonLogin" type="TextureButton" parent="LoginForm"]
-margin_top = 257.0
+margin_top = 235.0
 margin_right = 190.0
-margin_bottom = 306.0
+margin_bottom = 284.0
 texture_normal = ExtResource( 2 )
 texture_pressed = ExtResource( 1 )
 
@@ -125,9 +114,9 @@ __meta__ = {
 }
 
 [node name="CenterContainer" type="CenterContainer" parent="LoginForm"]
-margin_top = 310.0
+margin_top = 288.0
 margin_right = 190.0
-margin_bottom = 324.0
+margin_bottom = 302.0
 
 [node name="LinkButton" type="LinkButton" parent="LoginForm/CenterContainer"]
 margin_left = 53.0

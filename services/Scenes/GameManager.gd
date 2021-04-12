@@ -9,18 +9,31 @@ func start_game(lobby: Dictionary) -> void:
 	print("GameManager: starting game")
 	var new_game = game_template.instance()
 	new_game.name = str(gen_game_id())
-	for player in lobby.players:
-		var new_player = player_template.instance()
-		new_player.name = str(player.id)
-		new_game.add_child(new_player, true)
 	add_child(new_game, true)
+	
+	var game_obj: Dictionary
+	game_obj.game_id = new_game.name
+	game_obj.players = lobby.players
+	game_obj.selected_level = lobby.selected_level
+	
+	for player in game_obj.players:
+		var temp = {"t": 0}
+		new_game.player_state_buffer[player.id] = temp
+	
 	for player in lobby.players:
-		Services.pre_configure_game(player.id, test_level)
-
-func _on_done_preconfiguring(client_id) -> void:
-	print("done preconfiguring: " + client_id)
+		Services.pre_configure_game(player.id, game_obj)
+	
+	
+func _on_done_preconfiguring(client_id: int, game_id: String) -> void:
+	print("done preconfiguring: " + str(client_id))
+	if has_node(game_id):
+		get_node(game_id)._on_done_preconfiguring(client_id)
 
 func gen_game_id() -> int:
 	randomize()
 	var n: int = randi() * 8
 	return n
+
+func _on_receive_player_state(game_id: String, client_id: int, player_state) -> void:
+	if has_node(game_id):
+		get_node(game_id)._on_receive_player_state(client_id, player_state)

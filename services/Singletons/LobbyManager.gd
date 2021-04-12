@@ -19,8 +19,8 @@ func start_lobby(invitation: Dictionary) -> void:
 func create_new_lobby(invitation: Dictionary, lobby_id: int) -> Dictionary:
 	var lobby: Dictionary
 	lobby.id = lobby_id
-	lobby.players = [{"username": invitation.inviter, "id": invitation.inviter_id, "colour": "red", "is_ready": false}, {"username": invitation.invitee, "id": invitation.invitee_id, "colour": "green", "is_ready": false}]
-	lobby.selected_level = "0"
+	lobby.players = [{"username": invitation.inviter, "id": invitation.inviter_id, "colour": "green", "is_ready": false}, {"username": invitation.invitee, "id": invitation.invitee_id, "colour": "blue", "is_ready": false}]
+	lobby.selected_level = "1"
 	lobby.levels = [
 		{"id": "1", "name": "Beginner level", "completed": true, "next_level": "1"}, 
 		{"id": "2", "name": "Second Level", "completed": false, "next_level": "2"},

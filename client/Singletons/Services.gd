@@ -7,6 +7,8 @@ signal invitation_received
 signal invitation_rejected
 signal start_lobby
 signal pre_configure_game
+signal post_configure_game
+signal receive_world_state
 
 onready var playerList_screen: = get_node("/root/Main/Menu/PlayerList")
 onready var lobby_screen: = get_node("/root/Main/Menu/Lobby")
@@ -28,6 +30,8 @@ func _ready() -> void:
 	self.connect("start_lobby", lobby_screen, "_on_Services_start_lobby")
 	self.connect("start_lobby", menu, "_on_Services_start_lobby")
 	self.connect("pre_configure_game", game_manager, "_on_pre_configure_game")
+	self.connect("post_configure_game", game_manager, "_on_post_configure_game")
+	self.connect("receive_world_state", game_manager, "_on_receive_world_state")
 	
 func _process(delta: float) -> void:
 	if get_custom_multiplayer() == null:
@@ -44,7 +48,7 @@ func connect_to_services():
 	set_custom_multiplayer(m_api)
 	custom_multiplayer.set_root_node(self)
 	custom_multiplayer.set_network_peer(network)
-	
+	Global.unique_game_id = custom_multiplayer.get_network_unique_id()
 	network.connect("connection_failed", self, "_on_connection_failed")
 	network.connect("connection_succeeded", self, "_on_connection_succeeded")
 	network.connect("server_disconnected", self, "_on_server_disconnected")
@@ -55,7 +59,8 @@ func _on_connection_failed():
 
 func _on_connection_succeeded() -> void:
 	print("connection to Services succeeded, sending token and username")
-	rpc_id(1, "verify", Global.token, Global.username)
+	#rpc_id(1, "verify", Global.token, Global.username)
+	rpc_id(1, "debug_game")
 
 func _on_server_disconnected() -> void:
 	print("Services Server disconnected, attempting to reconnect")
@@ -127,9 +132,23 @@ func ready_button_pressed(lobby_id: int, is_ready: bool) -> void:
 # Game
 ##################################
 
-remote func pre_configure_game():
+remote func pre_configure_game(game_obj: Dictionary):
 	print("pre_configuring_game")
-	emit_signal("pre_configure_game")
+	emit_signal("pre_configure_game", game_obj)
 
-func done_preconfiguring():
-	rpc_id(1, "done_preconfiguring")
+func done_preconfiguring(game_id: String):
+	rpc_id(1, "done_preconfiguring", game_id)
+
+remote func post_configure_game() -> void:
+	print("received post configure game")
+	emit_signal("post_configure_game")
+
+func send_player_state(player_state: Dictionary) -> void:
+	rpc_id(1, "receive_player_state", player_state)
+
+remote func receive_world_state(world_state) -> void:
+	emit_signal("receive_world_state", world_state)
+	
+####################################
+# debug
+####################################

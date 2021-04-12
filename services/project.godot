@@ -26,7 +26,10 @@ TokenTransfer="*res://Singletons/TokenTransfer.gd"
 PlayerVerification="*res://Singletons/PlayerVerification.gd"
 PlayerManager="*res://Singletons/PlayerManager.gd"
 LobbyManager="*res://Singletons/LobbyManager.gd"
-GameServerServices="*res://Singletons/GameServerServices.gd"
+
+[physics]
+
+common/physics_fps=20
 
 [rendering]
 

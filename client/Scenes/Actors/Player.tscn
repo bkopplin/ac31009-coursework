@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Scenes/Actors/Player.gd" type="Script" id=1]
 [ext_resource path="res://assets/Base pack/Player/p1_stand.png" type="Texture" id=2]
 [ext_resource path="res://assets/Base pack/Player/p2_stand.png" type="Texture" id=3]
+[ext_resource path="res://assets/Base pack/Player/p3_stand.png" type="Texture" id=4]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 27.5, 46 )
@@ -15,3 +16,8 @@ gravity = 2500
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource( 1 )
+
+[node name="p3_stand" type="Sprite" parent="."]
+visible = false
+position = Vector2( 2.25369, 0.325974 )
+texture = ExtResource( 4 )

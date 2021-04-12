@@ -5,8 +5,7 @@ var invitations: Dictionary # {sender: {timestamp, receiver}}
 
 func player_connected(username: String, client_id: int):
 	available_players[username] = client_id
-	print("added player id " + str(client_id))
-	print(available_players)
+	print("added player to available players: " + str(client_id))
 	Services.update_available_players()
 	
 

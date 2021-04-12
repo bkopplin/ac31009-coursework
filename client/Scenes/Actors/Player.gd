@@ -6,7 +6,7 @@ export var texture_blue: Texture
 var colour: String setget set_colour
 
 var velocity: = Vector2()
-export var speed: = Vector2(400, 500)
+export var speed: = Vector2(400, 800)
 export var gravity: int = 1500
 var direction: = Vector2()
 
@@ -15,6 +15,7 @@ func _physics_process(delta: float) -> void:
 	direction = calc_direction()
 	velocity = calc_velocity(velocity, direction, speed)
 	move_and_slide(velocity, Vector2.UP)
+	generate_player_state()
 
 func calc_velocity(velocity: Vector2, direction: Vector2, speed: Vector2) -> Vector2:
 	var v = velocity
@@ -31,6 +32,11 @@ func calc_direction() -> Vector2:
 	)
 	return d
 
+func generate_player_state() -> void:
+	var player_state: Dictionary
+	player_state.position = self.position
+	player_state.t = OS.get_system_time_msecs()
+	Services.send_player_state(player_state)
 
 
 func set_colour(_colour: String) -> void:
