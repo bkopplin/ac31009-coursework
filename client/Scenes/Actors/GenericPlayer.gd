@@ -24,3 +24,6 @@ func _get_configuration_warning() -> String:
 	if texture_green == null:
 		warning += "texture_green may not be empty"
 	return warning
+
+func move_to(position: Vector2) -> void:
+	set_position(position)

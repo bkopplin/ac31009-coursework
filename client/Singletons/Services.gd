@@ -143,8 +143,8 @@ remote func post_configure_game() -> void:
 	print("received post configure game")
 	emit_signal("post_configure_game")
 
-func send_player_state(player_state: Dictionary) -> void:
-	rpc_id(1, "receive_player_state", player_state)
+func send_player_state(game_id: String, player_state: Dictionary) -> void:
+	rpc_unreliable_id(1, "receive_player_state", game_id, player_state)
 
 remote func receive_world_state(world_state) -> void:
 	emit_signal("receive_world_state", world_state)

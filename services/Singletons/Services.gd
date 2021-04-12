@@ -128,14 +128,13 @@ remote func receive_player_state(game_id: String, player_state) -> void:
 	emit_signal("receive_player_state", game_id, client_id, player_state)
 
 func send_world_state(client_id: int, world_state) -> void:
-	pass
+	rpc_unreliable_id(client_id, "receive_world_state", world_state)
 
 #########################################
 # debug
 #########################################
 
 remote func debug_game() -> void:
-	
 	var client_id = custom_multiplayer.get_rpc_sender_id()
 	print(PlayerManager.available_players.keys().size())
 	if PlayerManager.available_players.keys().size() == 1:

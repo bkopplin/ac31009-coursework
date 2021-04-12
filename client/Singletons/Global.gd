@@ -2,6 +2,7 @@ extends Node
 
 var token: String setget set_token
 var username: String setget set_username
+var game_id: String
 var in_game: bool setget set_in_game
 var unique_game_id: int 
 

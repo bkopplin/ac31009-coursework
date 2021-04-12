@@ -15,10 +15,7 @@ func start_game(lobby: Dictionary) -> void:
 	game_obj.game_id = new_game.name
 	game_obj.players = lobby.players
 	game_obj.selected_level = lobby.selected_level
-	
-	for player in game_obj.players:
-		var temp = {"t": 0}
-		new_game.player_state_buffer[player.id] = temp
+
 	
 	for player in lobby.players:
 		Services.pre_configure_game(player.id, game_obj)

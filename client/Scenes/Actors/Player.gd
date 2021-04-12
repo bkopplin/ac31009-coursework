@@ -14,7 +14,7 @@ var direction: = Vector2()
 func _physics_process(delta: float) -> void:
 	direction = calc_direction()
 	velocity = calc_velocity(velocity, direction, speed)
-	move_and_slide(velocity, Vector2.UP)
+	velocity = move_and_slide(velocity, Vector2.UP)
 	generate_player_state()
 
 func calc_velocity(velocity: Vector2, direction: Vector2, speed: Vector2) -> Vector2:
@@ -36,7 +36,7 @@ func generate_player_state() -> void:
 	var player_state: Dictionary
 	player_state.position = self.position
 	player_state.t = OS.get_system_time_msecs()
-	Services.send_player_state(player_state)
+	Services.send_player_state(Global.game_id, player_state)
 
 
 func set_colour(_colour: String) -> void:
