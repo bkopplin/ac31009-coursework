@@ -21,3 +21,9 @@ shape = SubResource( 1 )
 visible = false
 position = Vector2( 2.25369, 0.325974 )
 texture = ExtResource( 4 )
+
+[node name="Camera2D" type="Camera2D" parent="."]
+current = true
+limit_left = 0
+drag_margin_h_enabled = true
+smoothing_enabled = true

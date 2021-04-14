@@ -142,7 +142,7 @@ remote func debug_game() -> void:
 		PlayerManager.player_connected("Player2", client_id)
 		var temp: Dictionary
 		temp.players = [{"username": "player1", "id": PlayerManager.available_players["Player1"], "colour": "green"}, {"username": "player2", "id": client_id, "colour": "blue"}]
-		temp.selected_level = "2"
+		temp.selected_level = "1"
 		get_node("/root/Main/GameManager").start_game(temp)
 	else:
 		print("first client connected to debug_game")
