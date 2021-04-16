@@ -34,3 +34,4 @@ func gen_game_id() -> int:
 func _on_receive_player_state(game_id: String, client_id: int, player_state) -> void:
 	if has_node(game_id):
 		get_node(game_id)._on_receive_player_state(client_id, player_state)
+

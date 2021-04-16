@@ -28,9 +28,16 @@ func _on_pre_configure_game(game_obj: Dictionary) -> void:
 		var player_colour = player.colour
 		var player_scene: Node
 		if player.id == Global.unique_game_id:
-			player_scene = preload("res://Scenes/Actors/Player.tscn").instance()
+			if player.colour == "green":
+				player_scene = preload("res://Scenes/Actors/PlayerGreen.tscn").instance()
+			else:
+				player_scene = preload("res://Scenes/Actors/PlayerBlue.tscn").instance()
 		else:
-			player_scene = preload("res://Scenes/Actors/GenericPlayer.tscn").instance()
+			if player.colour == "green":
+				player_scene = preload("res://Scenes/Actors/GenericPlayerGreen.tscn").instance()
+			else:
+				player_scene = preload("res://Scenes/Actors/GenericPlayerBlue.tscn").instance()
+			
 			other_players.append(player.id)
 		
 		player_scene.name = str(player.id)

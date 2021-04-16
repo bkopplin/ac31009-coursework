@@ -1,4 +1,5 @@
 extends KinematicBody2D
+class_name Player
 
 export var texture_green: Texture
 export var texture_blue: Texture

@@ -11,15 +11,15 @@ func player_connected(username: String, client_id: int):
 
 func player_disconnected(player_id: int) -> void:
 	print("player disconnected")
-	print(available_players)
 	var disconnected_player: String = ""
 	for username in available_players:
 		if available_players[username] == player_id:
 			disconnected_player = username
 	
-	print(available_players)
+	
 	if disconnected_player != "":
 		available_players.erase(disconnected_player)
+		print(available_players)
 		Services.update_available_players()
 
 func get_available_users() -> Array:
