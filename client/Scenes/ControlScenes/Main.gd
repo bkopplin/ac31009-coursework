@@ -6,7 +6,7 @@ onready var game_manager = get_node("GameManager")
 func _ready() -> void:
 	print("starting game")
 	set_physics_process(false)
-	game_manager.visible = false
+#	game_manager.visible = false
 	
 	#set_physics_process(true)
 	#var temp = {}
@@ -19,5 +19,15 @@ func _ready() -> void:
 
 func start_game():
 	menu.visible = false
-	game_manager.visible = true
+#	game_manager.visible = true
 	Global.in_game = true
+
+func _on_return_to_homescreen() -> void:
+	print("Main: _on_return_to_homescreen")
+	Global.in_game = false
+	game_manager.end_game()
+	menu.changeto_playerList_screen()
+	menu.visible = true
+
+	
+	

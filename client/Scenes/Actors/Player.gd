@@ -58,3 +58,4 @@ func _get_configuration_warning() -> String:
 	if texture_green == null:
 		warning += "texture_green may not be empty"
 	return warning
+

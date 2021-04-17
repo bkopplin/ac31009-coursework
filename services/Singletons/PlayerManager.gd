@@ -9,8 +9,7 @@ func player_connected(username: String, client_id: int):
 	Services.update_available_players()
 	
 
-func player_disconnected(player_id: int) -> void:
-	print("player disconnected")
+func player_left_game(player_id: int) -> void:
 	var disconnected_player: String = ""
 	for username in available_players:
 		if available_players[username] == player_id:

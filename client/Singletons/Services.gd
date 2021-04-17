@@ -9,6 +9,8 @@ signal start_lobby
 signal pre_configure_game
 signal post_configure_game
 signal receive_world_state
+signal load_next_level
+signal player_left_game
 
 onready var playerList_screen: = get_node("/root/Main/Menu/PlayerList")
 onready var lobby_screen: = get_node("/root/Main/Menu/Lobby")
@@ -32,6 +34,8 @@ func _ready() -> void:
 	self.connect("pre_configure_game", game_manager, "_on_pre_configure_game")
 	self.connect("post_configure_game", game_manager, "_on_post_configure_game")
 	self.connect("receive_world_state", game_manager, "_on_receive_world_state")
+	self.connect("load_next_level", game_manager, "_on_load_next_level")
+	self.connect("player_left_game", game_manager, "_on_player_left_game")
 	
 func _process(delta: float) -> void:
 	if get_custom_multiplayer() == null:
@@ -148,7 +152,18 @@ func send_player_state(game_id: String, player_state: Dictionary) -> void:
 
 remote func receive_world_state(world_state) -> void:
 	emit_signal("receive_world_state", world_state)
+
+func level_finished() -> void:
+	rpc_id(1, "level_finished", Global.game_id)
+
+remote func load_next_level(level_name: String) -> void:
+	emit_signal("load_next_level", level_name)
+
+remote func player_left_game() -> void:
+	emit_signal("player_left_game")
 	
+func leave_game() -> void:
+	rpc_id(1, "leave_game")
 ####################################
 # debug
 ####################################

@@ -2,6 +2,9 @@ extends Node
 
 signal done_preconfiguring
 signal receive_player_state
+signal level_finished
+signal player_left_game
+
 onready var game_manager = get_node("/root/Main/GameManager")
 
 var network = NetworkedMultiplayerENet.new()
@@ -14,6 +17,8 @@ func _ready() -> void:
 	start_services()
 	self.connect("done_preconfiguring", game_manager, "_on_done_preconfiguring")
 	self.connect("receive_player_state", game_manager, "_on_receive_player_state")
+	self.connect("level_finished", game_manager, "_on_level_finished")
+	self.connect("player_left_game", game_manager, "_on_player_left_game")
 
 func _process(delta) -> void:
 	if get_custom_multiplayer() == null:
@@ -38,7 +43,9 @@ func _on_peer_connected(client_id) -> void:
 
 func _on_peer_disconnected(client_id) -> void:
 	print (str(client_id) + " disconnected")
-	PlayerManager.player_disconnected(client_id)
+	PlayerManager.player_left_game(client_id)
+	emit_signal("player_left_game", client_id)
+
 
 #############################
 # Verification
@@ -130,6 +137,19 @@ remote func receive_player_state(game_id: String, player_state) -> void:
 func send_world_state(client_id: int, world_state) -> void:
 	rpc_unreliable_id(client_id, "receive_world_state", world_state)
 
+remote func level_finished(game_id: String) -> void:
+	var client_id: = custom_multiplayer.get_rpc_sender_id()
+	emit_signal("level_finished", game_id, client_id)
+
+func load_next_level(client_id: int, level_name: String) -> void:
+	rpc_id(client_id, "load_next_level", level_name)
+
+remote func leave_game() -> void:
+	var client_id = custom_multiplayer.get_rpc_sender_id()
+	emit_signal("player_left_game", client_id)
+
+func player_left_game(client_id: int) -> void:
+	rpc_id(client_id, "player_left_game")
 #########################################
 # debug
 #########################################

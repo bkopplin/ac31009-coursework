@@ -11,9 +11,6 @@
 [ext_resource path="res://assets/uipack/PNG/grey_button13.png" type="Texture" id=9]
 [ext_resource path="res://UserInterfaceElements/text_error.tres" type="DynamicFont" id=10]
 
-
-
-
 [node name="Lobby" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0

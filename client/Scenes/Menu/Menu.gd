@@ -38,6 +38,9 @@ func changeto_signup_screen() -> void:
 func changeto_login_screen() -> void:
 	change_current_screen(login_screen)
 
+func changeto_lobby_screen() -> void:
+	change_current_screen(lobby_screen)
+
 func is_login_required() -> bool:
 	# TODO: Check if Authentication tokens are stored on disk
 	return true

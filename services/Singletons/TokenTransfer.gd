@@ -29,6 +29,7 @@ func _connect_to_token_transfer():
 
 func _on_connection_failed() -> void:
 	print("connection to Authentication Server failed")
+	yield(get_tree().create_timer(2), "timeout")
 	_reconnect()
 
 

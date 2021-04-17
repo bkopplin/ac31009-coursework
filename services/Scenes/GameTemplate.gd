@@ -1,5 +1,7 @@
 extends Node2D
 
+var current_level_id: String
+var players: Array
 var player_state_buffer: Dictionary
 var players_done_preconfiguring: Array
 var world_state: Dictionary
@@ -34,3 +36,12 @@ func _physics_process(delta: float):
 		
 	for client_id in players_done_preconfiguring:
 		Services.send_world_state(client_id, world_state)
+
+func _on_level_finished(game_id: String, client_id: int) -> void:
+	current_level_id = Global.get_next_level(current_level_id)
+	print("next level: " + str(current_level_id))
+	for player_id in players_done_preconfiguring:
+		Services.load_next_level(player_id, current_level_id)
+
+func _on_player_left_game(client_id: String) -> void:
+	print("player " + str(client_id) + "disconnected")
