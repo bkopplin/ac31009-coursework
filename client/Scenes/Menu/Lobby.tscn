@@ -7,9 +7,9 @@
 [ext_resource path="res://assets/uipack/PNG/red_button00.png" type="Texture" id=5]
 [ext_resource path="res://assets/uipack/PNG/red_button01.png" type="Texture" id=6]
 [ext_resource path="res://assets/Base pack/HUD/hud_p1.png" type="Texture" id=7]
-[ext_resource path="res://assets/Base pack/HUD/hud_p3.png" type="Texture" id=8]
-[ext_resource path="res://assets/uipack/PNG/grey_button13.png" type="Texture" id=9]
-[ext_resource path="res://UserInterfaceElements/text_error.tres" type="DynamicFont" id=10]
+[ext_resource path="res://assets/uipack/PNG/blue_button09.png" type="Texture" id=8]
+[ext_resource path="res://assets/icons/scrollHorizontal.png" type="Texture" id=9]
+[ext_resource path="res://assets/Base pack/HUD/hud_p2.png" type="Texture" id=11]
 
 [node name="Lobby" type="Control"]
 anchor_right = 1.0
@@ -19,10 +19,14 @@ script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+avatar_blue = ExtResource( 11 )
+avatar_green = ExtResource( 7 )
 
 [node name="ColorRect" type="ColorRect" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_top = -1.05946
+margin_bottom = -1.05945
 color = Color( 0.2, 0.211765, 0.270588, 1 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -83,14 +87,15 @@ __meta__ = {
 }
 
 [node name="LevelList" type="ItemList" parent="."]
+visible = false
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -127.362
-margin_top = -170.27
-margin_right = 138.638
-margin_bottom = 152.73
+margin_left = -105.5
+margin_top = -108.5
+margin_right = 105.5
+margin_bottom = 108.5
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -120,7 +125,7 @@ margin_right = 467.0
 margin_bottom = 69.0
 rect_min_size = Vector2( 250, 0 )
 
-[node name="CharacterLocalContainer" type="TextureRect" parent="PlayerArea/PlayerLocalContainer"]
+[node name="CharacterLocal" type="TextureRect" parent="PlayerArea/PlayerLocalContainer"]
 margin_right = 250.0
 margin_bottom = 47.0
 texture = ExtResource( 7 )
@@ -140,8 +145,18 @@ align = 1
 margin_left = 487.0
 margin_right = 536.0
 margin_bottom = 69.0
-texture_normal = ExtResource( 9 )
+texture_normal = ExtResource( 8 )
 stretch_mode = 3
+
+[node name="scrollHorizontal" type="TextureRect" parent="PlayerArea/SwapCharacters"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = 1.0
+margin_bottom = -19.0
+texture = ExtResource( 9 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="PlayerGuestContainer" type="VBoxContainer" parent="PlayerArea"]
 margin_left = 556.0
@@ -149,10 +164,10 @@ margin_right = 806.0
 margin_bottom = 69.0
 rect_min_size = Vector2( 250, 0 )
 
-[node name="PlayerGuestContainer" type="TextureRect" parent="PlayerArea/PlayerGuestContainer"]
+[node name="CharacterGuest" type="TextureRect" parent="PlayerArea/PlayerGuestContainer"]
 margin_right = 250.0
 margin_bottom = 47.0
-texture = ExtResource( 8 )
+texture = ExtResource( 11 )
 stretch_mode = 4
 __meta__ = {
 "_edit_use_anchors_": false
@@ -171,13 +186,18 @@ margin_right = 1024.0
 margin_bottom = 69.0
 size_flags_horizontal = 3
 
-[node name="ErrorLabel" type="Label" parent="."]
-margin_left = 20.8108
-margin_top = 181.0
-margin_right = 224.811
-margin_bottom = 418.0
-custom_fonts/font = ExtResource( 10 )
-autowrap = true
+[node name="ErrorDialog" type="AcceptDialog" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -148.0
+margin_top = -94.5
+margin_right = 148.0
+margin_bottom = 94.5
+theme = ExtResource( 2 )
+window_title = "Error"
+dialog_autowrap = true
 __meta__ = {
 "_edit_use_anchors_": false
 }

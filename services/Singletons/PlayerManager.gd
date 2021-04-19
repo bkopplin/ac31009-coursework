@@ -32,6 +32,9 @@ func get_username(_player_id: int) -> String:
 	return ""
 
 func invite(_inviter: String, _invitee: String, _inviter_id: int) -> void:
+	if not available_players.has(_invitee):
+		print("debug: player " + str(_invitee) + " is not available")
+		return
 	var invitation: Dictionary
 	invitation.inviter = _inviter
 	invitation.invitee = _invitee

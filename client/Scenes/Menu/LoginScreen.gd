@@ -1,10 +1,9 @@
-extends Control
+extends MenuScreen
 
 onready var usernameBox = get_node("LoginForm/Username")
 onready var passwordBox = get_node("LoginForm/Password")
 onready var menu = get_node("/root/Main/Menu")
-onready var error_dialog = get_node("ErrorDialog")
-onready var error_message = get_node("ErrorDialog/ErrorMessage")
+#onready var error_dialog = get_node("ErrorDialog")
 var username
 var password
 
@@ -14,7 +13,7 @@ func _on_LinkButton_pressed() -> void:
 
 
 func _on_ButtonLogin_pressed() -> void:
-	username = usernameBox.text
+	username = usernameBox.text.to_lower()
 	password = passwordBox.text
 
 	if not error_check():
@@ -22,7 +21,7 @@ func _on_ButtonLogin_pressed() -> void:
 		Global.username = username
 
 func error_check() -> bool:
-	error_message.text = ""
+	var error_message = ""
 	var error = false
 	var message = ""
 	if username == "":
@@ -33,21 +32,18 @@ func error_check() -> bool:
 		error = true
 
 	if error:
-		error_message.text = message
-		error_dialog.show()
+		show_error(error_message)
 		return true
 	else:
-		error_dialog.hide()
+		hide_error()
 		return false
 
-func error_message(message: String) -> void:
-	error_message.text = message
-	error_dialog.show()
-
-func _on_login_result_received(token, result):
+func _on_login_result_received(token, result: bool):
 	print("LoginScreen: in _on_login_results_received: results: " + str(result))
-	if result:
+	if result == true:
+		print("connecting to services")
 		Global.token = token
 		Services.connect_to_services()
 	else:
-		error_message("login failed")
+		print("showing error")
+		show_error("login failed")

@@ -1,10 +1,8 @@
-extends Control
+extends MenuScreen
 
 onready var username_box = get_node("SignupForm/Username")
 onready var password_box = get_node("SignupForm/Password")
 onready var password_repeat_box = get_node("SignupForm/PasswordRepeat")
-onready var error_dialog = get_node("ErrorDialog")
-onready var error_message = get_node("ErrorDialog/ErrorMessage")
 onready var menu = get_node("/root/Main/Menu")
 
 var username 
@@ -17,7 +15,7 @@ func _on_LinkButton_pressed() -> void:
 
 func _on_ButtonLogin_pressed() -> void:
 
-	username = username_box.text
+	username = username_box.text.to_lower()
 	password = password_box.text
 	password2 = password_repeat_box.text
 
@@ -29,7 +27,6 @@ func _on_ButtonLogin_pressed() -> void:
 		Global.username = username
 
 func error_check() -> bool:
-	error_message.text = ""
 	var error = false
 	var message = ""
 	if username == "":
@@ -46,16 +43,11 @@ func error_check() -> bool:
 		error = true
 	
 	if error:
-		error_message.text = message
-		error_dialog.show()
+		show_error(message)
 		return true
 	else:
-		error_dialog.hide()
+		hide_error()
 		return false
-
-func error_message(message: String) -> void:
-	error_message.text = message
-	error_dialog.show()
 
 func _on_signup_result_received(token, result):
 	print("SignupScreen: in _on_signup_result_received: results: " + str(result))
@@ -63,4 +55,4 @@ func _on_signup_result_received(token, result):
 		Global.token = token
 		Services.connect_to_services()
 	else:
-		error_message("Signup failed")
+		show_error("Signup failed")

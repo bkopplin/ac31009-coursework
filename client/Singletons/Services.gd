@@ -19,7 +19,8 @@ onready var game_manager: = get_node("/root/Main/GameManager")
 
 var network: NetworkedMultiplayerENet
 var m_api: MultiplayerAPI
-var ip = "127.0.0.1"
+#var ip = "127.0.0.1"
+var ip = "192.168.178.73"
 var port = 2002
 
 func _ready() -> void:
@@ -45,6 +46,7 @@ func _process(delta: float) -> void:
 	custom_multiplayer.poll()
 
 func connect_to_services():
+	print("connecting to services")
 	network = NetworkedMultiplayerENet.new()
 	m_api = MultiplayerAPI.new()
 
@@ -63,8 +65,8 @@ func _on_connection_failed():
 
 func _on_connection_succeeded() -> void:
 	print("connection to Services succeeded, sending token and username")
-	#rpc_id(1, "verify", Global.token, Global.username)
-	rpc_id(1, "debug_game")
+	rpc_id(1, "verify", Global.token, Global.username)
+	#rpc_id(1, "debug_game")
 
 func _on_server_disconnected() -> void:
 	print("Services Server disconnected, attempting to reconnect")
@@ -131,6 +133,12 @@ remote func start_lobby(lobby_state: Dictionary) -> void:
 func ready_button_pressed(lobby_id: int, is_ready: bool) -> void:
 	print("sending start game")
 	rpc_id(0, "ready_button_pressed", lobby_id, is_ready)
+
+func lobby_change_level(lobby_id: int, level_id: String) -> void:
+	rpc_id(1, "lobby_change_level", lobby_id, level_id)
+
+remote func lobby_update_selected_level(level_id: String) -> void:
+	pass
 
 ##################################
 # Game

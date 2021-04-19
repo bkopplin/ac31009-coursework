@@ -1,10 +1,9 @@
-extends Control
+extends MenuScreen
 
-onready var available_players = get_node("AvailablePlayers")
+onready var available_players = get_node("MainContainer/AvailablePlayers")
 onready var invitation_dialog = get_node("InvitationDialog")
-onready var invitation_label = get_node("InvitationDialog/MarginContainer/InvitationText")
-onready var error_label = get_node("ErrorLabel")
-onready var username_label = get_node("UsernameLabel")
+onready var invitation_label = get_node("InvitationDialog/InvitationText")
+onready var username_label = get_node("NavBar/HBoxContainer/UsernameLabel")
 
 var invitation_queue: Array # pending invitations
 
@@ -26,13 +25,9 @@ func get_selected_item(list: ItemList) -> String:
 		selected = available_players.get_item_text(selected_items[0]) if selected_items.size() == 1 else ""
 	return selected
 
-func error_message(message: String) -> void:
-	error_label.text = message
-
-
 func _on_Services_return_verification_result(result) -> void:
 	username_label.text = "Logged in as " + Global.username if result else "not logged in"
-	error_message("")
+	hide_error()
 
 func update_available_players(players: Array) -> void:
 	print("PlayerList: update_available_players: players: " + str(players))
@@ -51,7 +46,8 @@ func _on_Services_invitation_received(invitation: Dictionary) -> void:
 	
 
 func _on_Services_invitation_rejected(invitation: Dictionary) -> void:
-	error_label.text = "Inivation by " + invitation.invitee + " rejected: " + str(invitation.message)
+	var msg = "Inivation by " + invitation.invitee + " rejected: " + str(invitation.message)
+	show_error(msg)
 
 
 func _on_AcceptInviteButton_pressed() -> void:
@@ -74,5 +70,5 @@ func show_invitation() -> void:
 
 func _on_Services_services_disconnected() -> void:
 	update_available_players([])
-	error_message("Services disconnected")
+	show_error("Services disconnected")
 	

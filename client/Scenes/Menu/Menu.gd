@@ -45,12 +45,12 @@ func is_login_required() -> bool:
 	# TODO: Check if Authentication tokens are stored on disk
 	return true
 
-
+# TODO delete
 func _on_Services_return_verification_result(result) -> void:
 	if result:
 		changeto_playerList_screen()
 	else:
-		current_screen.error_message("cannot connect to Services")
+		current_screen.show_error("cannot connect to Services")
 
 func _on_Services_start_lobby(_lobby_state) -> void:
 	change_current_screen(lobby_screen)

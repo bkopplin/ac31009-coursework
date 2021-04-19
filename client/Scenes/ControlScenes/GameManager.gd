@@ -28,7 +28,6 @@ func _on_pre_configure_game(game_obj: Dictionary) -> void:
 		selected_level: ID of the selected level
 	}
 	"""
-	print("preconfiguring game with game_obj: " + str(game_obj))
 	if not game_obj.has("selected_level"):
 		pass
 	
@@ -67,14 +66,10 @@ func load_level(level_id: String) -> bool:
 	var level_resource = load(level_path)
 	
 	if level_id == "last_level":
-		print("wip")
 		show_dialog_wip()
-		
-	
 		return false
 		
 	if level_resource == null:
-		print("level doesn't exist")
 		show_dialog_level_not_found()
 		return false
 		
@@ -90,7 +85,6 @@ func get_spawnpoint(colour: String) -> Vector2:
 	return level_node.get_node("Level").get_spawnpoint(colour)
 
 func _on_post_configure_game() -> void:
-	print("post configuring game")
 	set_physics_process(true)
 
 func _on_receive_world_state(world_state) -> void:
@@ -157,7 +151,6 @@ func show_dialog_player_left() -> void:
 		get_tree().paused = true
 
 func end_game() -> void:
-	print("GameManager: end_game()")
 	for p in player_nodes.get_children():
 		player_nodes.remove_child(p)
 	

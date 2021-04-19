@@ -58,6 +58,8 @@ remote func verify(token: String, username: String) -> void:
 	if verified:
 		print(username + " verified.")
 		PlayerManager.player_connected(username, player_id)
+	
+	print("verify: player_id: " + str(player_id))
 	rpc_id(player_id, "return_verification_result", verified)
 
 #############################
@@ -114,6 +116,12 @@ remote func ready_button_pressed(lobby_id: int, is_ready: bool) -> void:
 	var client_id = custom_multiplayer.get_rpc_sender_id()
 	LobbyManager.start_game(lobby_id, is_ready, client_id)
 
+remote func lobby_change_level(lobby_id: int, level_id: String) -> void:
+	var client_id = custom_multiplayer.get_rpc_sender_id()
+	LobbyManager.change_level(client_id, lobby_id, level_id)
+
+func lobby_update_selected_level(client_id:int, level_id: String) -> void:
+	rpc_id(client_id, "lobby_update_selected_level", level_id)
 ######################################
 # Game
 ######################################

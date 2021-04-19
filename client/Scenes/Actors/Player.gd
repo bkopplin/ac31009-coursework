@@ -10,6 +10,7 @@ var velocity: = Vector2()
 export var speed: = Vector2(400, 800)
 export var gravity: int = 1500
 var direction: = Vector2()
+export var jump_factor: = 1.0
 
 
 func _physics_process(delta: float) -> void:
@@ -59,3 +60,10 @@ func _get_configuration_warning() -> String:
 		warning += "texture_green may not be empty"
 	return warning
 
+func _on_SpringBoardDetector_area_entered(area: Area2D) -> void:
+	velocity = calculate_jump(velocity, jump_factor)
+	print("_on_SpringBoardDetector_area_entered")
+
+func calculate_jump(linear_velocity: Vector2, jump_factor: float) -> Vector2:
+	linear_velocity.y = linear_velocity.y * -1 * jump_factor
+	return linear_velocity

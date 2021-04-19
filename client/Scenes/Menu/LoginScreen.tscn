@@ -67,7 +67,7 @@ text = "Username"
 margin_top = 101.0
 margin_right = 190.0
 margin_bottom = 129.0
-text = "fritz"
+text = "FriTz"
 
 [node name="MarginContainer2" type="MarginContainer" parent="LoginForm"]
 margin_top = 133.0
@@ -86,6 +86,7 @@ margin_top = 169.0
 margin_right = 190.0
 margin_bottom = 197.0
 text = "a"
+secret = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -124,23 +125,18 @@ margin_right = 137.0
 margin_bottom = 14.0
 text = "new account"
 
-[node name="ErrorDialog" type="PopupDialog" parent="."]
-visible = true
+[node name="ErrorDialog" type="AcceptDialog" parent="."]
 anchor_left = 0.5
+anchor_top = 0.5
 anchor_right = 0.5
-margin_left = -412.818
-margin_top = 141.759
-margin_right = -194.818
-margin_bottom = 451.759
+anchor_bottom = 0.5
+margin_left = -148.0
+margin_top = -94.5
+margin_right = 148.0
+margin_bottom = 94.5
 theme = ExtResource( 3 )
-__meta__ = {
-"_edit_use_anchors_": false,
-"_editor_description_": ""
-}
-
-[node name="ErrorMessage" type="Label" parent="ErrorDialog"]
-anchor_right = 1.0
-anchor_bottom = 1.0
+window_title = "Error"
+dialog_autowrap = true
 __meta__ = {
 "_edit_use_anchors_": false
 }

@@ -9,7 +9,8 @@ onready var signup_screen = get_node("/root/Main/Menu/SignupScreen")
 
 var network: NetworkedMultiplayerENet
 var m_api: MultiplayerAPI
-var ip = "127.0.0.1"
+#var ip = "127.0.0.1"
+var ip = "192.168.178.73"
 var port = 2000
 
 
@@ -29,6 +30,7 @@ func _process(delta: float) -> void:
 	custom_multiplayer.poll()
 
 func _connect_to_gateway(callback: String, binds):
+	print("Gateway: connecting to gateway")
 	network = NetworkedMultiplayerENet.new()
 	m_api = MultiplayerAPI.new()
 #	network.set_dtls_enabled(true)
@@ -57,13 +59,14 @@ func _disconnect_from_gateway() -> void:
 		network.disconnect("connection_succeeded", self, "_on_connection_succeeded")
 
 func login_request(username: String, password: String) -> void:
+	print("Gateway: login_request(): sending login request")
 	_connect_to_gateway("send_login_request", [username, password])
 
 func send_login_request(params: Array) -> void:
 	rpc_id(1, "login_request", params[0], params[1])
 	
 remote func return_login_results(token: String, result: bool):
-	print("return_login_results: token=" + token + ", result=" + str(result))
+	print("Gateway: return_login_results(): token=" + token + ", result=" + str(result))
 	emit_signal("login_result_received", token, result)
 	# menu.return_auth_results(token, result)
 	_disconnect_from_gateway()

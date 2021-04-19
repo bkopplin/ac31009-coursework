@@ -20,11 +20,8 @@ func create_new_lobby(invitation: Dictionary, lobby_id: int) -> Dictionary:
 	var lobby: Dictionary
 	lobby.id = lobby_id
 	lobby.players = [{"username": invitation.inviter, "id": invitation.inviter_id, "colour": "green", "is_ready": false}, {"username": invitation.invitee, "id": invitation.invitee_id, "colour": "blue", "is_ready": false}]
-	lobby.selected_level = "1"
-	lobby.levels = [
-		{"id": "1", "name": "Beginner level", "completed": true, "next_level": "1"}, 
-		{"id": "2", "name": "Second Level", "completed": false, "next_level": "2"},
-		{"id": "3", "name": "Through the canyon", "completed": false, "next_level": "3"},]
+	lobby.selected_level = "2"
+	
 	return lobby
 
 func gen_lobby_id() -> int:
@@ -42,4 +39,16 @@ func start_game(lobby_id: int, is_ready: bool, client_id: int) -> void:
 		all_ready = all_ready and player.is_ready
 	if all_ready:
 		print("all ready, starting game")
+		lobbies[lobby_id].levels = Global.levels.duplicate(true)
 		emit_signal("start_game", lobbies[lobby_id])
+
+func change_level(client_id: int, lobby_id: int, level_id: String):
+	if not Global.levels.keys().has(level_id):
+		print("level id not in available levels")
+		return
+	lobbies[lobby_id].selected_level = level_id
+	for player in lobbies[lobby_id].players:
+		if player.id == client_id:
+			continue
+		Services.lobby_update_selected_level(player.id, level_id)
+	

@@ -1,0 +1,11 @@
+[gd_resource type="DynamicFont" load_steps=3 format=2]
+
+[sub_resource type="DynamicFontData" id=2]
+font_path = "res://assets/uipack/Font/kenvector_future_thin.ttf"
+
+[sub_resource type="DynamicFontData" id=1]
+font_path = "res://assets/uipack/Font/kenvector_future_thin.ttf"
+
+[resource]
+font_data = SubResource( 1 )
+fallback/0 = SubResource( 2 )

@@ -15,7 +15,9 @@ func _ready() -> void:
 	#temp.selected_level = "2"
 	#Global.username = "player1"
 	#game_manager._on_pre_configure_game(temp)
-	Services.connect_to_services()
+	
+	# debug without connecting to auth servers
+	#Services.connect_to_services()
 
 func start_game():
 	menu.visible = false
