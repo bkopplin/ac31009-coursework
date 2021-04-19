@@ -2,12 +2,10 @@ extends MenuScreen
 
 onready var available_players = get_node("MainContainer/AvailablePlayers")
 onready var invitation_dialog = get_node("InvitationDialog")
-onready var invitation_label = get_node("InvitationDialog/InvitationText")
 onready var username_label = get_node("NavBar/HBoxContainer/UsernameLabel")
 
 var invitation_queue: Array # pending invitations
 
-var invitation_template = "%s sends you an invite."
 
 func _ready() -> void:
 	pass
@@ -63,12 +61,24 @@ func _on_RejectInviteButton_pressed() -> void:
 	show_invitation()
 
 func show_invitation() -> void:
-	if not invitation_dialog.visible and invitation_queue.size() > 0:
-		invitation_dialog.visible = true
-		invitation_label.text =  invitation_template % invitation_queue[0].inviter
+	if invitation_queue.size() > 0:
+		var inviter = invitation_queue[0].inviter
+		invitation_dialog.show_invitation(inviter)
 
 
 func _on_Services_services_disconnected() -> void:
 	update_available_players([])
 	show_error("Services disconnected")
 	
+
+
+func _on_InvitationDialog_invitation_accepted() -> void:
+	var invitation = invitation_queue.pop_front()
+	Services.accept_invitation(invitation)
+	show_invitation()
+
+
+func _on_InvitationDialog_invitation_rejected() -> void:
+	var invitation = invitation_queue.pop_front()
+	Services.reject_invitation(invitation)
+	show_invitation()

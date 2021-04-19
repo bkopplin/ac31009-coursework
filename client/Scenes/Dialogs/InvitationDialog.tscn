@@ -1,0 +1,80 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://assets/uipack/Buttons/red_button00.png" type="Texture" id=1]
+[ext_resource path="res://assets/uipack/Buttons/red_button01.png" type="Texture" id=2]
+[ext_resource path="res://assets/uipack/Buttons/green_button01.png" type="Texture" id=3]
+[ext_resource path="res://assets/uipack/Buttons/green_button00.png" type="Texture" id=4]
+[ext_resource path="res://Scenes/Dialogs/InvitationDialog.gd" type="Script" id=5]
+
+[node name="InvitationDialog" type="WindowDialog"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -208.0
+margin_top = -81.0
+margin_right = 208.0
+margin_bottom = 81.0
+window_title = "Invitation"
+script = ExtResource( 5 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="InvitationButttons" type="HBoxContainer" parent="."]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -49.0
+alignment = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AcceptInviteButton" type="TextureButton" parent="InvitationButttons"]
+margin_left = 16.0
+margin_right = 206.0
+margin_bottom = 49.0
+texture_normal = ExtResource( 4 )
+texture_pressed = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="InvitationButttons/AcceptInviteButton"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+text = "accept"
+align = 1
+valign = 1
+
+[node name="RejectInviteButton" type="TextureButton" parent="InvitationButttons"]
+margin_left = 210.0
+margin_right = 400.0
+margin_bottom = 49.0
+texture_normal = ExtResource( 1 )
+texture_pressed = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="InvitationButttons/RejectInviteButton"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+text = "reject"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="InvitationText" type="Label" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 20.0
+margin_top = 20.0
+margin_right = -20.0
+margin_bottom = -60.0
+autowrap = true
+[connection signal="pressed" from="InvitationButttons/AcceptInviteButton" to="." method="_on_AcceptInviteButton_pressed"]
+[connection signal="pressed" from="InvitationButttons/RejectInviteButton" to="." method="_on_RejectInviteButton_pressed"]

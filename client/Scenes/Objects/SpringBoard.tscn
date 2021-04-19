@@ -1,8 +1,9 @@
 [gd_scene load_steps=6 format=2]
 
-[ext_resource path="res://assets/Base pack/Items/springboardUp.png" type="Texture" id=1]
-[ext_resource path="res://assets/Base pack/Items/springboardDown.png" type="Texture" id=2]
+[ext_resource path="res://assets/Items/springboardUp.png" type="Texture" id=1]
+[ext_resource path="res://assets/Items/springboardDown.png" type="Texture" id=2]
 [ext_resource path="res://Scenes/Objects/SpringBoard.gd" type="Script" id=3]
+
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 25.5759, 17.3281 )

@@ -2,7 +2,8 @@ extends Node
 
 signal done_preconfiguring
 signal receive_player_state
-signal level_finished
+signal exit_area_entered
+signal exit_area_left
 signal player_left_game
 
 onready var game_manager = get_node("/root/Main/GameManager")
@@ -17,7 +18,8 @@ func _ready() -> void:
 	start_services()
 	self.connect("done_preconfiguring", game_manager, "_on_done_preconfiguring")
 	self.connect("receive_player_state", game_manager, "_on_receive_player_state")
-	self.connect("level_finished", game_manager, "_on_level_finished")
+	self.connect("exit_area_entered", game_manager, "_on_exit_area_entered")
+	self.connect("exit_area_left", game_manager, "_on_exit_area_left")
 	self.connect("player_left_game", game_manager, "_on_player_left_game")
 
 func _process(delta) -> void:
@@ -53,7 +55,6 @@ func _on_peer_disconnected(client_id) -> void:
 
 remote func verify(token: String, username: String) -> void:
 	var player_id = custom_multiplayer.get_rpc_sender_id()
-#	print("received token=" + token + ", username=" + username)
 	var verified = PlayerVerification.verify(token, username)
 	if verified:
 		print(username + " verified.")
@@ -145,9 +146,13 @@ remote func receive_player_state(game_id: String, player_state) -> void:
 func send_world_state(client_id: int, world_state) -> void:
 	rpc_unreliable_id(client_id, "receive_world_state", world_state)
 
-remote func level_finished(game_id: String) -> void:
+remote func exit_area_entered(game_id: String) -> void:
 	var client_id: = custom_multiplayer.get_rpc_sender_id()
-	emit_signal("level_finished", game_id, client_id)
+	emit_signal("exit_area_entered", game_id, client_id)
+
+remote func exit_area_left(game_id: String) -> void:
+	var client_id: = custom_multiplayer.get_rpc_sender_id()
+	emit_signal("exit_area_left", game_id, client_id)
 
 func load_next_level(client_id: int, level_name: String) -> void:
 	rpc_id(client_id, "load_next_level", level_name)
@@ -170,7 +175,7 @@ remote func debug_game() -> void:
 		PlayerManager.player_connected("Player2", client_id)
 		var temp: Dictionary
 		temp.players = [{"username": "player1", "id": PlayerManager.available_players["Player1"], "colour": "green"}, {"username": "player2", "id": client_id, "colour": "blue"}]
-		temp.selected_level = "1"
+		temp.selected_level = "3"
 		get_node("/root/Main/GameManager").start_game(temp)
 	else:
 		print("first client connected to debug_game")

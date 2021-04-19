@@ -1,11 +1,13 @@
 [gd_scene load_steps=7 format=2]
 
-[ext_resource path="res://UserInterfaceElements/defaultTheme.tres" type="Theme" id=1]
-[ext_resource path="res://assets/uipack/PNG/blue_button03.png" type="Texture" id=2]
+[ext_resource path="res://assets/uipack/Font/defaultTheme.tres" type="Theme" id=1]
+[ext_resource path="res://assets/uipack/Buttons/blue_button03.png" type="Texture" id=2]
 [ext_resource path="res://Scenes/Dialogs/MenuDialog.gd" type="Script" id=3]
-[ext_resource path="res://assets/uipack/PNG/blue_button02.png" type="Texture" id=4]
-[ext_resource path="res://assets/uipack/PNG/red_button01.png" type="Texture" id=5]
-[ext_resource path="res://assets/uipack/PNG/red_button00.png" type="Texture" id=6]
+[ext_resource path="res://assets/uipack/Buttons/blue_button02.png" type="Texture" id=4]
+[ext_resource path="res://assets/uipack/Buttons/red_button01.png" type="Texture" id=5]
+[ext_resource path="res://assets/uipack/Buttons/red_button00.png" type="Texture" id=6]
+
+
 
 [node name="MenuDialog" type="WindowDialog"]
 pause_mode = 2

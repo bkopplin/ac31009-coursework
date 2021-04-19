@@ -1,9 +1,11 @@
 [gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://UserInterfaceElements/defaultTheme.tres" type="Theme" id=1]
-[ext_resource path="res://assets/uipack/PNG/blue_button03.png" type="Texture" id=2]
+[ext_resource path="res://assets/uipack/Font/defaultTheme.tres" type="Theme" id=1]
+[ext_resource path="res://assets/uipack/Buttons/blue_button03.png" type="Texture" id=2]
 [ext_resource path="res://Scenes/Dialogs/InfoDialog.gd" type="Script" id=3]
-[ext_resource path="res://assets/uipack/PNG/blue_button02.png" type="Texture" id=4]
+[ext_resource path="res://assets/uipack/Buttons/blue_button02.png" type="Texture" id=4]
+
+
 
 [node name="ReturnToLobbyDialog" type="WindowDialog"]
 pause_mode = 2

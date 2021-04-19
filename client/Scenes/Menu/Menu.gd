@@ -5,8 +5,9 @@ onready var signup_screen = get_node("SignupScreen")
 onready var playerList_screen = get_node("PlayerList")
 onready var lobby_screen = get_node("Lobby")
 
+onready var inital_screen = login_screen
 onready var current_screen = login_screen
-onready var inital_screen = login_screen # for debugging purposes
+
 
 func _ready() -> void:
 	login_screen.visible = true
@@ -25,6 +26,7 @@ func _ready() -> void:
 
 
 func change_current_screen(new_screen: Control) -> void:
+	current_screen.hide_error()
 	current_screen.visible = false
 	current_screen = new_screen
 	current_screen.visible = true
@@ -45,7 +47,6 @@ func is_login_required() -> bool:
 	# TODO: Check if Authentication tokens are stored on disk
 	return true
 
-# TODO delete
 func _on_Services_return_verification_result(result) -> void:
 	if result:
 		changeto_playerList_screen()

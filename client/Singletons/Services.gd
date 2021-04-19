@@ -65,8 +65,8 @@ func _on_connection_failed():
 
 func _on_connection_succeeded() -> void:
 	print("connection to Services succeeded, sending token and username")
-	rpc_id(1, "verify", Global.token, Global.username)
-	#rpc_id(1, "debug_game")
+	#rpc_id(1, "verify", Global.token, Global.username)
+	rpc_id(1, "debug_game")
 
 func _on_server_disconnected() -> void:
 	print("Services Server disconnected, attempting to reconnect")
@@ -161,8 +161,11 @@ func send_player_state(game_id: String, player_state: Dictionary) -> void:
 remote func receive_world_state(world_state) -> void:
 	emit_signal("receive_world_state", world_state)
 
-func level_finished() -> void:
-	rpc_id(1, "level_finished", Global.game_id)
+func exit_area_entered() -> void:
+	rpc_id(1, "exit_area_entered", Global.game_id)
+
+func exit_area_left() -> void:
+	rpc_id(1, "exit_area_left", Global.game_id)
 
 remote func load_next_level(level_name: String) -> void:
 	emit_signal("load_next_level", level_name)

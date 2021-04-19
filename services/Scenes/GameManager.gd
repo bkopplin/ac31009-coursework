@@ -42,6 +42,14 @@ func _on_level_finished(game_id: String, client_id: int) -> void:
 	if has_node(game_id):
 		get_node(game_id)._on_level_finished(game_id, client_id)
 
+func _on_exit_area_entered(game_id: String, client_id: int) -> void:
+	if has_node(game_id):
+		get_node(game_id)._on_exit_area_entered(client_id)
+	
+func _on_exit_area_left(game_id: String, client_id: int) -> void:
+	if has_node(game_id):
+		get_node(game_id)._on_exit_area_left(client_id)
+
 func _on_player_left_game(client_id: int):
 	print("GameManager: _on_player_left_game: player disconnected, player_in_game: " + str(player_in_game))
 	if not player_in_game.has(client_id):

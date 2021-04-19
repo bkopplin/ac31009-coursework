@@ -7,12 +7,14 @@
 [ext_resource path="res://Scenes/Sensors/PressurePlateGreen.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Scenes/Objects/Exit.tscn" type="PackedScene" id=6]
 [ext_resource path="res://Scenes/Observers/PlatformLarge.tscn" type="PackedScene" id=7]
-[ext_resource path="res://assets/Base pack/Tiles/signLeft.png" type="Texture" id=8]
-[ext_resource path="res://assets/Base pack/Items/cactus.png" type="Texture" id=9]
-[ext_resource path="res://assets/Base pack/Tiles/signExit.png" type="Texture" id=10]
-[ext_resource path="res://assets/Base pack/Items/plant.png" type="Texture" id=11]
-[ext_resource path="res://assets/Base pack/Items/plantPurple.png" type="Texture" id=12]
-[ext_resource path="res://assets/Base pack/Tiles/signRight.png" type="Texture" id=13]
+[ext_resource path="res://assets/Tiles/signLeft.png" type="Texture" id=8]
+[ext_resource path="res://assets/Items/cactus.png" type="Texture" id=9]
+[ext_resource path="res://assets/Tiles/signExit.png" type="Texture" id=10]
+[ext_resource path="res://assets/Items/plant.png" type="Texture" id=11]
+[ext_resource path="res://assets/Items/plantPurple.png" type="Texture" id=12]
+[ext_resource path="res://assets/Tiles/signRight.png" type="Texture" id=13]
+
+
 
 [node name="Level" type="Node2D"]
 position = Vector2( -6.99437, 6.56421 )

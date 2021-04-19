@@ -1,13 +1,10 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=6 format=2]
 
-[ext_resource path="res://UserInterfaceElements/defaultTheme.tres" type="Theme" id=1]
+[ext_resource path="res://assets/uipack/Font/defaultTheme.tres" type="Theme" id=1]
 [ext_resource path="res://Scenes/Menu/PlayerList.gd" type="Script" id=2]
-[ext_resource path="res://assets/uipack/PNG/blue_button01.png" type="Texture" id=3]
-[ext_resource path="res://assets/uipack/PNG/blue_button00.png" type="Texture" id=4]
-[ext_resource path="res://assets/uipack/PNG/green_button00.png" type="Texture" id=5]
-[ext_resource path="res://assets/uipack/PNG/red_button00.png" type="Texture" id=6]
-[ext_resource path="res://assets/uipack/PNG/green_button01.png" type="Texture" id=7]
-[ext_resource path="res://assets/uipack/PNG/red_button01.png" type="Texture" id=8]
+[ext_resource path="res://assets/uipack/Buttons/blue_button01.png" type="Texture" id=3]
+[ext_resource path="res://assets/uipack/Buttons/blue_button00.png" type="Texture" id=4]
+[ext_resource path="res://Scenes/Dialogs/InvitationDialog.tscn" type="PackedScene" id=5]
 
 [node name="PlayerList" type="Control"]
 anchor_right = 1.0
@@ -141,75 +138,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="InvitationDialog" type="WindowDialog" parent="."]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -208.0
-margin_top = -81.0
-margin_right = 208.0
-margin_bottom = 81.0
-window_title = "Invitation"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="InvitationButttons" type="HBoxContainer" parent="InvitationDialog"]
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_top = -49.0
-alignment = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="AcceptInviteButton" type="TextureButton" parent="InvitationDialog/InvitationButttons"]
-margin_left = 16.0
-margin_right = 206.0
-margin_bottom = 49.0
-texture_normal = ExtResource( 5 )
-texture_pressed = ExtResource( 7 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Label" type="Label" parent="InvitationDialog/InvitationButttons/AcceptInviteButton"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-text = "accept"
-align = 1
-valign = 1
-
-[node name="RejectInviteButton" type="TextureButton" parent="InvitationDialog/InvitationButttons"]
-margin_left = 210.0
-margin_right = 400.0
-margin_bottom = 49.0
-texture_normal = ExtResource( 6 )
-texture_pressed = ExtResource( 8 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Label" type="Label" parent="InvitationDialog/InvitationButttons/RejectInviteButton"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-text = "reject"
-align = 1
-valign = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="InvitationText" type="Label" parent="InvitationDialog"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 20.0
-margin_top = 20.0
-margin_right = -20.0
-margin_bottom = -60.0
-autowrap = true
+[node name="InvitationDialog" parent="." instance=ExtResource( 5 )]
 [connection signal="pressed" from="MainContainer/InviteButton" to="." method="_on_InviteButton_pressed"]
-[connection signal="pressed" from="InvitationDialog/InvitationButttons/AcceptInviteButton" to="." method="_on_AcceptInviteButton_pressed"]
-[connection signal="pressed" from="InvitationDialog/InvitationButttons/RejectInviteButton" to="." method="_on_RejectInviteButton_pressed"]
+[connection signal="invitation_accepted" from="InvitationDialog" to="." method="_on_InvitationDialog_invitation_accepted"]
+[connection signal="invitation_rejected" from="InvitationDialog" to="." method="_on_InvitationDialog_invitation_rejected"]
