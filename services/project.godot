@@ -28,6 +28,7 @@ PlayerManager="*res://Singletons/PlayerManager.gd"
 LobbyManager="*res://Singletons/LobbyManager.gd"
 Global="*res://Singletons/Global.gd"
 Logger="*res://Singletons/Logger.gd"
+WaitingRoom="*res://Singletons/WaitingRoom.gd"
 
 [physics]
 

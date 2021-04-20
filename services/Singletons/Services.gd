@@ -70,9 +70,13 @@ remote func verify(token: String, username: String) -> void:
 # update player list
 #############################
 
-func update_available_players() -> void:
-	var p = PlayerManager.get_available_users()
-	rpc_id(0, "update_available_players", p)
+func update_waitingroom(client_id: int, players: Array) -> void:
+	rpc_id(client_id, "update_available_players", players)
+
+# deprecated
+#func update_available_players() -> void:
+#	var p = PlayerManager.get_available_users()
+#	rpc_id(0, "update_available_players", p)
 
 remote func fetch_available_players() -> void:
 	print("fetch_available_players")

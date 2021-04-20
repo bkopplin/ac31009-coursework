@@ -1,7 +1,6 @@
 extends Node
 
 onready var game_template: = preload("res://Scenes/GameTemplate.tscn")
-onready var player_template =preload("res://Scenes/PlayerTemplate.tscn")
 
 var player_in_game: Dictionary # player_id: game_id
 

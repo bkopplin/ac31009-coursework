@@ -32,7 +32,9 @@ func start_gateway() -> void:
 func _on_peer_connected(player_id) -> void:
 	Logger.info(str(player_id) + " connected")
 
+
 func _on_peer_disconnected(player_id) -> void:
+	print("connected peers:" + str(custom_multiplayer.get_network_connected_peers()))
 	Logger.info (str(player_id) + " disconnected")
 
 
