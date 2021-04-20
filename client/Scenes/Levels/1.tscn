@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://Scenes/Levels/GroundTileSet.tres" type="TileSet" id=1]
 [ext_resource path="res://Scenes/Levels/1.gd" type="Script" id=2]
@@ -13,8 +13,13 @@
 [ext_resource path="res://assets/Items/plant.png" type="Texture" id=11]
 [ext_resource path="res://assets/Items/plantPurple.png" type="Texture" id=12]
 [ext_resource path="res://assets/Tiles/signRight.png" type="Texture" id=13]
-
-
+[ext_resource path="res://assets/Background/Elements/Retina/treeSmall_green1.png" type="Texture" id=14]
+[ext_resource path="res://assets/Background/Elements/Retina/treePine.png" type="Texture" id=15]
+[ext_resource path="res://assets/Background/Elements/Retina/treeLong.png" type="Texture" id=16]
+[ext_resource path="res://assets/Background/Elements/Retina/treeSmall_green2.png" type="Texture" id=17]
+[ext_resource path="res://assets/Background/Parralax/backgroundColorGrass.png" type="Texture" id=18]
+[ext_resource path="res://assets/Background/Elements/Retina/treeSmall_green3.png" type="Texture" id=19]
+[ext_resource path="res://assets/Background/Elements/Retina/tree.png" type="Texture" id=20]
 
 [node name="Level" type="Node2D"]
 position = Vector2( -6.99437, 6.56421 )
@@ -50,6 +55,31 @@ texture = ExtResource( 13 )
 position = Vector2( 4866.64, 422.681 )
 rotation = -0.451949
 texture = ExtResource( 8 )
+
+[node name="treeLong" type="Sprite" parent="Decoration"]
+position = Vector2( 2720.02, 216.766 )
+texture = ExtResource( 16 )
+
+[node name="treePine" type="Sprite" parent="Decoration"]
+position = Vector2( 5134.03, 199.127 )
+texture = ExtResource( 15 )
+
+[node name="tree" type="Sprite" parent="Decoration"]
+position = Vector2( 5489.33, 247.004 )
+texture = ExtResource( 20 )
+
+[node name="treeSmall_green1" type="Sprite" parent="Decoration"]
+position = Vector2( 4385.64, 546.865 )
+rotation = 2.87007
+texture = ExtResource( 14 )
+
+[node name="treeSmall_green2" type="Sprite" parent="Decoration"]
+position = Vector2( 4708.18, 766.092 )
+texture = ExtResource( 17 )
+
+[node name="treeSmall_green3" type="Sprite" parent="Decoration"]
+position = Vector2( 5008.04, 788.77 )
+texture = ExtResource( 19 )
 
 [node name="Objects" type="Node2D" parent="."]
 
@@ -96,6 +126,30 @@ position = Vector2( 4193.4, 801.436 )
 
 [node name="Exit" parent="." instance=ExtResource( 6 )]
 position = Vector2( 5488.84, 797.904 )
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+
+[node name="VeryFar" type="ParallaxLayer" parent="ParallaxBackground"]
+position = Vector2( -6.99437, 6.56421 )
+motion_scale = Vector2( 0.5, 1 )
+motion_mirroring = Vector2( 1024, 0 )
+
+[node name="backgroundColorGrass" type="TextureRect" parent="ParallaxBackground/VeryFar"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 1.78186
+margin_top = -249.452
+margin_right = 1025.78
+margin_bottom = 774.548
+texture = ExtResource( 18 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Close" type="ParallaxLayer" parent="ParallaxBackground"]
+position = Vector2( -6.99437, 6.56421 )
+motion_scale = Vector2( 0.5, 1 )
+motion_mirroring = Vector2( 1024, 0 )
 [connection signal="activated" from="Sensors/PressurePlateBlue" to="Objects/Bridge" method="show"]
 [connection signal="deactivated" from="Sensors/PressurePlateBlue" to="Objects/Bridge" method="hide"]
 [connection signal="activated" from="Sensors/PressurePlateGreen" to="Objects/Bridge" method="show"]

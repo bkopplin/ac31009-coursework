@@ -8,9 +8,6 @@ onready var tree: SceneTree = get_tree()
 #var certificate = load("res://certificate/x509_certificate.crt")
 #var key = load("res://certificate/x509_key.key")
 
-func _ready() -> void:
-	start_gateway()
-
 func _process(delta) -> void:
 	if get_custom_multiplayer() == null:
 		return
@@ -28,19 +25,19 @@ func start_gateway() -> void:
 	custom_multiplayer.set_root_node(self)
 	custom_multiplayer.set_network_peer(network)
 	
-	print("gateway listening on port " + str(port))
+	Logger.info("Gateway Server listening on port " + str(port))
 	network.connect("peer_connected", self, "_on_peer_connected")
 	network.connect("peer_disconnected", self, "_on_peer_disconnected")
 
 func _on_peer_connected(player_id) -> void:
-	print(str(player_id) + " connected")
+	Logger.info(str(player_id) + " connected")
 
 func _on_peer_disconnected(player_id) -> void:
-	print (str(player_id) + " disconnected")
+	Logger.info (str(player_id) + " disconnected")
 
 
 remote func login_request(username: String, password: String) -> void:
-	var client_id = tree.get_rpc_sender_id()
+	var client_id = custom_multiplayer.get_rpc_sender_id()
 	Authenticate.login_request(username, password, client_id)
 
 func return_login_results(token: String, result: bool, player_id: int) -> void:
@@ -50,10 +47,10 @@ func return_login_results(token: String, result: bool, player_id: int) -> void:
 
 remote func signup_request(params: Dictionary) -> void:
 	var client_id = tree.get_rpc_sender_id()
-	print("received signup request")
+	Logger.debug("received signup request")
 	Authenticate.signup_request(params, client_id)
 
 func return_signup_results(token: String, result: bool, player_id: int) -> void:
-	print("returning singup results")
+	Logger.debug("returning singup results")
 	rpc_id(player_id, "return_signup_results", token, result)
 	network.disconnect_peer(player_id)

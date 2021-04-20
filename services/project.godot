@@ -27,6 +27,7 @@ PlayerVerification="*res://Singletons/PlayerVerification.gd"
 PlayerManager="*res://Singletons/PlayerManager.gd"
 LobbyManager="*res://Singletons/LobbyManager.gd"
 Global="*res://Singletons/Global.gd"
+Logger="*res://Singletons/Logger.gd"
 
 [physics]
 

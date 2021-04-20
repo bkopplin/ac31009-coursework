@@ -2,7 +2,7 @@ extends Node
 
 var network = NetworkedMultiplayerENet.new()
 var m_api = MultiplayerAPI.new()
-var port = 2003
+var port = 2010
 var maxplayers = 5
 onready var tree: SceneTree = get_tree()
 

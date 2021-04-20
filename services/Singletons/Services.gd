@@ -10,12 +10,11 @@ onready var game_manager = get_node("/root/Main/GameManager")
 
 var network = NetworkedMultiplayerENet.new()
 var m_api = MultiplayerAPI.new()
-var port = 2002
+var port = 2001
 var maxplayers = 200
 onready var tree: SceneTree = get_tree()
 
 func _ready() -> void:
-	start_services()
 	self.connect("done_preconfiguring", game_manager, "_on_done_preconfiguring")
 	self.connect("receive_player_state", game_manager, "_on_receive_player_state")
 	self.connect("exit_area_entered", game_manager, "_on_exit_area_entered")
@@ -36,15 +35,17 @@ func start_services() -> void:
 	custom_multiplayer.set_root_node(self)
 	custom_multiplayer.set_network_peer(network)
 	
-	print("Services listening on port " + str(port))
+	Logger.info("Services listening on port " + str(port))
 	network.connect("peer_connected", self, "_on_peer_connected")
 	network.connect("peer_disconnected", self, "_on_peer_disconnected")
 
-func _on_peer_connected(client_id) -> void:
-	print(str(client_id) + " connected")
+func _on_peer_connected(_client_id) -> void:
+	var client_id = _client_id
+	Logger.info(str(client_id) + " connected")
+
 
 func _on_peer_disconnected(client_id) -> void:
-	print (str(client_id) + " disconnected")
+	Logger.info(str(client_id) + " disconnected")
 	PlayerManager.player_left_game(client_id)
 	emit_signal("player_left_game", client_id)
 
@@ -55,7 +56,9 @@ func _on_peer_disconnected(client_id) -> void:
 
 remote func verify(token: String, username: String) -> void:
 	var player_id = custom_multiplayer.get_rpc_sender_id()
+	print("Services: verify: username=" + username + ", token=" + token)
 	var verified = PlayerVerification.verify(token, username)
+	print(verified)
 	if verified:
 		print(username + " verified.")
 		PlayerManager.player_connected(username, player_id)
@@ -109,13 +112,17 @@ remote func accept_invite(invitation: Dictionary) -> void:
 	PlayerManager.remove_invitation(invitation)
 	LobbyManager.start_lobby(invitation)
 
+#####################################
+# Lobby
+#####################################
+
 func start_lobby(client_id: int, lobby_state: Dictionary) -> void:
-	print("sending start lobby to " + str(client_id))
+	Logger.debug("sending start lobby to " + str(client_id))
 	rpc_id(client_id, "start_lobby", lobby_state)
 
 remote func ready_button_pressed(lobby_id: int, is_ready: bool) -> void:
 	var client_id = custom_multiplayer.get_rpc_sender_id()
-	LobbyManager.start_game(lobby_id, is_ready, client_id)
+	LobbyManager.ready_button_pressed(lobby_id, is_ready, client_id)
 
 remote func lobby_change_level(lobby_id: int, level_id: String) -> void:
 	var client_id = custom_multiplayer.get_rpc_sender_id()
@@ -175,7 +182,7 @@ remote func debug_game() -> void:
 		PlayerManager.player_connected("Player2", client_id)
 		var temp: Dictionary
 		temp.players = [{"username": "player1", "id": PlayerManager.available_players["Player1"], "colour": "green"}, {"username": "player2", "id": client_id, "colour": "blue"}]
-		temp.selected_level = "3"
+		temp.selected_level = "1"
 		get_node("/root/Main/GameManager").start_game(temp)
 	else:
 		print("first client connected to debug_game")

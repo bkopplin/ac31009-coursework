@@ -3,10 +3,7 @@ extends Node
 var network: NetworkedMultiplayerENet
 var m_api: MultiplayerAPI
 var ip = "127.0.0.1"
-var port = 2003
-
-func _ready() -> void:
-	_connect_to_token_transfer()
+var port = 2010
 
 func _process(delta: float) -> void:
 	if get_custom_multiplayer() == null:
@@ -15,7 +12,7 @@ func _process(delta: float) -> void:
 		return
 	custom_multiplayer.poll()
 
-func _connect_to_token_transfer():
+func connect_to_token_transfer():
 	network = NetworkedMultiplayerENet.new()
 	m_api = MultiplayerAPI.new()
 	network.create_client(ip, port)
@@ -39,7 +36,8 @@ func _on_connection_succeeded() -> void:
 func _reconnect() -> void:
 	print("attempting to reconnect to TokenTranfer")
 	network.close_connection()
-	_connect_to_token_transfer()
+	yield(get_tree().create_timer(2), "timeout")
+	connect_to_token_transfer()
 
 remote func receive_token(token: String, username: String) -> void:
 	PlayerVerification.add_token(token, username)

@@ -1,7 +1,7 @@
 extends Node
 
 var network = NetworkedMultiplayerENet.new()
-var port = 2001
+var port = 2011
 var max_clients = 10
 onready var tree: SceneTree = get_tree()
 onready var auth_helper = get_node("AuthHelper")

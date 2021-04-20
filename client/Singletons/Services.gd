@@ -19,9 +19,7 @@ onready var game_manager: = get_node("/root/Main/GameManager")
 
 var network: NetworkedMultiplayerENet
 var m_api: MultiplayerAPI
-#var ip = "127.0.0.1"
-var ip = "192.168.178.73"
-var port = 2002
+
 
 func _ready() -> void:
 	self.connect("services_disconnected", playerList_screen, "_on_Services_services_disconnected")
@@ -46,11 +44,11 @@ func _process(delta: float) -> void:
 	custom_multiplayer.poll()
 
 func connect_to_services():
-	print("connecting to services")
+	print("Services: connect_to_services: connecting")
 	network = NetworkedMultiplayerENet.new()
 	m_api = MultiplayerAPI.new()
 
-	network.create_client(ip, port)
+	network.create_client(Global.services_ip, Global.services_port)
 	set_custom_multiplayer(m_api)
 	custom_multiplayer.set_root_node(self)
 	custom_multiplayer.set_network_peer(network)
@@ -60,16 +58,17 @@ func connect_to_services():
 	network.connect("server_disconnected", self, "_on_server_disconnected")
 
 func _on_connection_failed():
-	print("connection to Services failed")
+	print("Services: connection to Services failed")
+	yield(get_tree().create_timer(2), "timeout")
 	connect_to_services()
 
 func _on_connection_succeeded() -> void:
-	print("connection to Services succeeded, sending token and username")
-	#rpc_id(1, "verify", Global.token, Global.username)
-	rpc_id(1, "debug_game")
+	print("Services: connecting to Services succeeded")
+	get_verification()
+	#rpc_id(1, "debug_game")
 
 func _on_server_disconnected() -> void:
-	print("Services Server disconnected, attempting to reconnect")
+	print("Services: Server disconnected, attempting to reconnect")
 	emit_signal("services_disconnected")
 	connect_to_services()
 	
@@ -83,6 +82,10 @@ func disconnect_from_services() -> void:
 #############################
 # Verification
 #############################
+
+remote func get_verification() -> void:
+	print("Services: get_verificaion: requested credentials")
+	rpc_id(1, "verify", Global.token, Global.username)
 
 remote func return_verification_result(result) -> void:
 	print("return_verification_result")

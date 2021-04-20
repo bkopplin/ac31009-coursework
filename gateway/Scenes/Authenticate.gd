@@ -1,11 +1,8 @@
 extends Node
 
 var network = NetworkedMultiplayerENet.new()
-var port = 2001
+var port = 2011
 var ip = "127.0.0.1"
-
-func _ready() -> void:
-	connect_to_authserver()
 
 func connect_to_authserver() -> void:
 	network.create_client(ip, port)
@@ -17,15 +14,16 @@ func connect_to_authserver() -> void:
 	network.connect("server_disconnected", self, "_reconnect")
 
 func _on_connection_failed() -> void:
-	print("Failed to connect to authentication server")
+	Logger.error("Failed to connect to authentication server")
 	_reconnect()
 
 func _on_connection_succeeded() -> void:
-	print("Successfully connected to authentication server")
+	Logger.info("Successfully connected to authentication server")
 
 
-func _reconnect() -> void:	
+func _reconnect() -> void:
 	network.close_connection()
+	yield(get_tree().create_timer(2), "timeout")
 	connect_to_authserver()
 
 ##############################
@@ -36,7 +34,7 @@ func login_request(username: String, password: String, player_id: int) -> void:
 	rpc_id(1, "login_request", username, password, player_id)
 
 remote func return_login_results(token: String, result: bool, player_id: int) -> void:
-	print("received auth token " + str(token))
+	print("received auth: token=" + str(token) + "result=" + str(result) + ", player_id=" + str(player_id))
 	Gateway.return_login_results(token, result, player_id)
 
 ##############################
@@ -44,13 +42,10 @@ remote func return_login_results(token: String, result: bool, player_id: int) ->
 ##############################
 
 func signup_request(options: Dictionary, player_id: int) -> void:
-	print("send signup request to auth server")
+	Logger.debug("Authenticate: sending signup request to auth server")
 	rpc_id(1, "signup_request", options, player_id)
 
 remote func return_signup_results(token: String, result: bool, player_id: int) -> void:
-	print("received signup results")
+	Logger.debug("Authenticate: received signup results")
 	Gateway.return_signup_results(token, result, player_id)
 
-
-func _on_ConnectionTimer_timeout() -> void:
-	connect_to_authserver()

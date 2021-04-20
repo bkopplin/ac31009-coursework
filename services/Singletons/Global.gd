@@ -1,5 +1,8 @@
 extends Node
 
+const COLOUR_GREEN: = "green"
+const COLOUR_BLUE: = "blue"
+
 var levels: = {
 		"1": {"name": "First Level", "next_level": "2"}, 
 		"2": {"name": "Up and Down", "next_level": "3"},
