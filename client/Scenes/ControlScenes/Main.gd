@@ -17,7 +17,7 @@ func _ready() -> void:
 	#game_manager._on_pre_configure_game(temp)
 	
 	# debug without connecting to auth servers
-	#Services.connect_to_services()
+	Services.connect_to_services()
 
 func start_game():
 	menu.visible = false
