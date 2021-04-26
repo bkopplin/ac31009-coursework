@@ -108,8 +108,13 @@ remote func reject_invite(invitation: Dictionary) -> void:
 
 remote func accept_invitation(invitation: Dictionary) -> void:
 	print("invitation accepted")
+	# DEBUG SETTING
+	# uncomment to use lobby
 #	PlayerManager.remove_invitation(invitation)
-	LobbyManager.start_lobby(invitation)
+	#LobbyManager.start_lobby(invitation)
+	
+	var l = LobbyManager.create_new_lobby(invitation, LobbyManager.gen_lobby_id())
+	game_manager.start_game(l)
 
 remote func accept_invite(invitation: Dictionary) -> void:
 	print("invitation accepted: " + str(invitation))

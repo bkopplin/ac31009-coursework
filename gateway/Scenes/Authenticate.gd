@@ -4,7 +4,13 @@ var network = NetworkedMultiplayerENet.new()
 var port = 2011
 var ip = "127.0.0.1"
 
+var certificate = load("res://Resources/Certificates/cert_authentication.crt")
+
 func connect_to_authserver() -> void:
+	network.set_dtls_enabled(true)
+	network.set_dtls_verify_enabled(false)
+	network.set_dtls_certificate(certificate)
+	
 	network.create_client(ip, port)
 	get_tree().set_network_peer(network)
 	

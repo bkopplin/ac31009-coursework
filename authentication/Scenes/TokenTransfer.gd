@@ -7,6 +7,8 @@ var maxplayers = 5
 onready var tree: SceneTree = get_tree()
 
 var connected_services: Array
+var certificate = load("res://Resources/Certificates/cert_tokentransfer.crt")
+var key = load("res://Resources/Certificates/key_tokentransfer.key")
 
 func _ready() -> void:
 	start_tokentransfer()
@@ -20,6 +22,9 @@ func _process(delta) -> void:
 
 
 func start_tokentransfer() -> void:
+	network.set_dtls_enabled(true)
+	network.set_dtls_key(key)
+	network.set_dtls_certificate(certificate)
 	network.create_server(port, maxplayers)
 	set_custom_multiplayer(m_api)
 	custom_multiplayer.set_root_node(self)

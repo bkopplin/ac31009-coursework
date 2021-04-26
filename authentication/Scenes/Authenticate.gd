@@ -6,7 +6,14 @@ var max_clients = 10
 onready var tree: SceneTree = get_tree()
 onready var auth_helper = get_node("AuthHelper")
 
+var certificate = load("res://Resources/Certificates/cert_authentication.crt")
+var key = load("res://Resources/Certificates/key_authentication.key")
+
 func _ready() -> void:
+	network.set_dtls_enabled(true)
+	network.set_dtls_key(key)
+	network.set_dtls_certificate(certificate)
+	
 	network.create_server(port, max_clients)
 	get_tree().set_network_peer(network)
 	

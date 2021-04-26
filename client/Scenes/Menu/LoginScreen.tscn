@@ -17,6 +17,8 @@ __meta__ = {
 [node name="ColorRect" type="ColorRect" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_top = -1.18921
+margin_bottom = -1.18921
 color = Color( 0.2, 0.211765, 0.270588, 1 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -67,7 +69,7 @@ text = "Username"
 margin_top = 101.0
 margin_right = 190.0
 margin_bottom = 129.0
-text = "FriTz"
+text = "fritz"
 
 [node name="MarginContainer2" type="MarginContainer" parent="LoginForm"]
 margin_top = 133.0

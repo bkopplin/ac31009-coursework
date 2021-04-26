@@ -6,15 +6,8 @@ onready var game_manager = get_node("GameManager")
 func _ready() -> void:
 	print("starting game")
 	set_physics_process(false)
-#	game_manager.visible = false
-	
-	#set_physics_process(true)
-	#var temp = {}
-	#temp.game_id = "3434234324"
-	#temp.players = [{"username": "player1", "id": "11111d1111", "colour": "green"}, {"username": "player2", "id": "222222222222222", "colour": "blue"}]
-	#temp.selected_level = "2"
-	#Global.username = "player1"
-	#game_manager._on_pre_configure_game(temp)
+
+	#debug_local("3")
 	
 	# debug without connecting to auth servers
 	#Services.connect_to_services()
@@ -31,5 +24,12 @@ func _on_return_to_homescreen() -> void:
 	menu.changeto_playerList_screen()
 	menu.visible = true
 
-	
+func debug_local(current_level: String) -> void:
+	set_physics_process(true)
+	var temp = {}
+	temp.game_id = "3434234324"
+	temp.players = [{"username": "player1", "id": get_tree().get_network_unique_id(), "colour": "green"}, {"username": "player2", "id": 222222222222222, "colour": "blue"}]
+	temp.current_level = current_level
+	Global.username = "player1"
+	game_manager._on_pre_configure_game(temp)	
 	

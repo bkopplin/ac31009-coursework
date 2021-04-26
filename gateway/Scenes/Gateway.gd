@@ -5,8 +5,8 @@ var m_api = MultiplayerAPI.new()
 var port = 2000
 var maxplayers = 80
 onready var tree: SceneTree = get_tree()
-#var certificate = load("res://certificate/x509_certificate.crt")
-#var key = load("res://certificate/x509_key.key")
+var certificate = load("res://Resources/Certificates/cert_gateway.crt")
+var key = load("res://Resources/Certificates/key_gateway.key")
 
 func _process(delta) -> void:
 	if get_custom_multiplayer() == null:
@@ -17,9 +17,10 @@ func _process(delta) -> void:
 
 
 func start_gateway() -> void:
-	#network.set_dtls_enabled(true)
-	#network.set_dtls_key(key)
-	#network.set_dtls_certificate(certificate)
+	network.set_dtls_enabled(true)
+	network.set_dtls_key(key)
+	network.set_dtls_certificate(certificate)
+	
 	network.create_server(port, maxplayers)
 	set_custom_multiplayer(m_api)
 	custom_multiplayer.set_root_node(self)

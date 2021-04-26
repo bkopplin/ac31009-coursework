@@ -6,15 +6,11 @@ signal signup_result_received
 onready var login_screen = get_node("/root/Main/Menu/LoginScreen")
 onready var signup_screen = get_node("/root/Main/Menu/SignupScreen")
 
-
 var network: NetworkedMultiplayerENet
 var m_api: MultiplayerAPI
 
-
-
-
 onready var menu: Node = get_node("/root/Main/Menu")
-# var certificate = load("")
+var certificate = load("res://Resources/Certificates/cert_gateway.crt")
 
 func _ready() -> void:
 	self.connect("login_result_received", login_screen, "_on_login_result_received")
@@ -31,9 +27,11 @@ func _connect_to_gateway(callback: String, binds):
 	print("Gateway: connecting to gateway")
 	network = NetworkedMultiplayerENet.new()
 	m_api = MultiplayerAPI.new()
-#	network.set_dtls_enabled(true)
-#	network.set_dtls_verify_enabled(false)
-#	network.set_dtls_certificate(certificate)
+	
+	network.set_dtls_enabled(true)
+	network.set_dtls_verify_enabled(false)
+	network.set_dtls_certificate(certificate)
+
 	network.create_client(Global.gateway_ip, Global.gateway_port)
 	set_custom_multiplayer(m_api)
 	custom_multiplayer.set_root_node(self)

@@ -4,14 +4,14 @@
 [ext_resource path="res://assets/Items/springboardDown.png" type="Texture" id=2]
 [ext_resource path="res://Scenes/Objects/SpringBoard.gd" type="Script" id=3]
 
-
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 25.5759, 17.3281 )
+extents = Vector2( 35.8206, 17.3281 )
 
 [sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 25.2505, 16.8244 )
+extents = Vector2( 36.1968, 33.6615 )
 
 [node name="SpringBoard" type="Node2D"]
+scale = Vector2( 1.8, 1 )
 script = ExtResource( 3 )
 
 [node name="Textures" type="Node2D" parent="."]

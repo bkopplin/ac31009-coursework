@@ -22,7 +22,7 @@ func create_new_lobby(invitation: Dictionary, lobby_id: int) -> Dictionary:
 	var lobby: Dictionary
 	lobby.id = lobby_id
 	lobby.players = [{"username": invitation.inviter, "id": invitation.inviter_id, "colour": Global.COLOUR_GREEN, "is_ready": false}, {"username": invitation.invitee, "id": invitation.invitee_id, "colour": Global.COLOUR_BLUE, "is_ready": false}]
-	lobby.selected_level = "1"
+	lobby.selected_level = "3"
 	return lobby
 
 func gen_lobby_id() -> int:

@@ -5,6 +5,8 @@ var m_api: MultiplayerAPI
 var ip = "127.0.0.1"
 var port = 2010
 
+var certificate = load("res://Resources/Certificates/cert_tokentransfer.crt")
+
 func _process(delta: float) -> void:
 	if get_custom_multiplayer() == null:
 		return
@@ -15,6 +17,11 @@ func _process(delta: float) -> void:
 func connect_to_token_transfer():
 	network = NetworkedMultiplayerENet.new()
 	m_api = MultiplayerAPI.new()
+	
+	network.set_dtls_enabled(true)
+	network.set_dtls_verify_enabled(false)
+	network.set_dtls_certificate(certificate)
+	
 	network.create_client(ip, port)
 	set_custom_multiplayer(m_api)
 	custom_multiplayer.set_root_node(self)
