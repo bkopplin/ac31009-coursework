@@ -7,10 +7,10 @@ func _ready() -> void:
 	print("starting game")
 	set_physics_process(false)
 
-	#debug_local("3")
+	#debug_local("1")
 	
 	# debug without connecting to auth servers
-	#Services.connect_to_services()
+	Services.connect_to_services()
 
 func start_game():
 	menu.visible = false

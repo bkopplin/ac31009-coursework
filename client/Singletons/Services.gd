@@ -64,8 +64,8 @@ func _on_connection_failed():
 
 func _on_connection_succeeded() -> void:
 	print("Services: connecting to Services succeeded")
-	get_verification()
-	#rpc_id(1, "debug_game")
+	#get_verification()
+	rpc_id(1, "debug_game")
 
 func _on_server_disconnected() -> void:
 	print("Services: Server disconnected, attempting to reconnect")

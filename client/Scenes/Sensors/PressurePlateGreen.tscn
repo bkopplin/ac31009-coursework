@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Scenes/Sensors/PressurePlate.gd" type="Script" id=1]
 [ext_resource path="res://assets/Items/buttonGreen.png" type="Texture" id=2]
 [ext_resource path="res://assets/Items/buttonGreen_pressed.png" type="Texture" id=3]
+[ext_resource path="res://assets/uipack/Sound/click1.ogg" type="AudioStream" id=4]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 34.9314, 20.488 )
@@ -24,5 +25,8 @@ texture = ExtResource( 3 )
 
 [node name="ButtonReleased" type="Sprite" parent="Textures"]
 texture = ExtResource( 2 )
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 4 )
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="body_exited" from="." to="." method="_on_body_exited"]

@@ -6,8 +6,8 @@
 [ext_resource path="res://assets/Background/Parralax/backgroundColorFall.png" type="Texture" id=4]
 [ext_resource path="res://Scenes/Sensors/PressurePlateGreen.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Scenes/Levels/3.gd" type="Script" id=6]
-[ext_resource path="res://Scenes/Observers/PlatformLarge.tscn" type="PackedScene" id=7]
-[ext_resource path="res://Scenes/Observers/PlatformMedium.tscn" type="PackedScene" id=8]
+[ext_resource path="res://Scenes/Objects/PlatformLarge.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Scenes/Objects/PlatformMedium.tscn" type="PackedScene" id=8]
 [ext_resource path="res://Scenes/Sensors/PressurePlateBlue.tscn" type="PackedScene" id=9]
 [ext_resource path="res://assets/Background/Elements/Default/treePineOrange.png" type="Texture" id=10]
 [ext_resource path="res://assets/Background/Elements/Default/treeOrange.png" type="Texture" id=11]
@@ -34,7 +34,7 @@ position = Vector2( 1523.05, 611.578 )
 position = Vector2( 2387.79, 603.676 )
 
 [node name="Platform1" parent="Objects" instance=ExtResource( 7 )]
-position = Vector2( 2257.81, 439.704 )
+position = Vector2( 2257.81, 441.949 )
 
 [node name="Platform2" parent="Objects" instance=ExtResource( 8 )]
 position = Vector2( 2755.03, 198.771 )

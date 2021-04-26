@@ -1,10 +1,9 @@
 [gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://assets/Tiles/dirtHalfRight.png" type="Texture" id=1]
-[ext_resource path="res://Scenes/Observers/Platform.gd" type="Script" id=2]
+[ext_resource path="res://Scenes/Objects/Platform.gd" type="Script" id=2]
 [ext_resource path="res://assets/Tiles/dirtHalfLeft.png" type="Texture" id=3]
 [ext_resource path="res://assets/Tiles/dirtHalfMid.png" type="Texture" id=4]
-
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 95, 15 )
