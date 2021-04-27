@@ -22,6 +22,10 @@ func is_in_waitingroom(player_id: int) -> bool:
 	return false
 
 func update_waitingroom() -> void:
+	"""
+	Makes an rpc call to all connected clients to send them the newest version
+	of the waiting room
+	"""
 	var players = available_players.keys()
 	for client_id in available_players.values():
 		Services.update_waitingroom(client_id, players)

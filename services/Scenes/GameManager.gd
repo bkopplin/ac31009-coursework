@@ -62,3 +62,14 @@ func _on_player_left_game(client_id: int):
 				continue
 			Services.player_left_game(player)
 		remove_child(game_node)
+
+func is_player_in_game(client_id) -> bool:
+	return true if player_in_game.has(client_id) else false
+
+func get_clients_in_game(game_id) -> Array:
+	return get_node(game_id).players_done_preconfiguring if has_node(game_id) else [] # TODO get a better player data sctruct
+
+func terminate_game(game_id) -> void:
+	if has_node(game_id):
+		var game_node = get_node(game_id)
+		remove_child(game_node)

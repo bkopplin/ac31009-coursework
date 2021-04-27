@@ -10,6 +10,7 @@ func verify(token: String, username: String) -> bool:
 	while OS.get_unix_time() - int(token.right(64)) <= 30 and not verified:
 		if token_list.has(username) and token_list[username] == token:
 			verified = true
+			# TODO remove verified or expired tokens from token list
 		else:
 			yield(get_tree().create_timer(2), "timeout")
 	return true if verified else false

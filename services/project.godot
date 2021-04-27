@@ -8,9 +8,26 @@
 
 config_version=4
 
-_global_script_classes=[  ]
+_global_script_classes=[ {
+"base": "Node",
+"class": "Invitations",
+"language": "GDScript",
+"path": "res://Scenes/Invitations.gd"
+}, {
+"base": "Node",
+"class": "Players",
+"language": "GDScript",
+"path": "res://Scenes/Players.gd"
+}, {
+"base": "Node",
+"class": "Waitingroom",
+"language": "GDScript",
+"path": "res://Scenes/WaitingRoom.gd"
+} ]
 _global_script_class_icons={
-
+"Invitations": "",
+"Players": "",
+"Waitingroom": ""
 }
 
 [application]
@@ -24,11 +41,11 @@ config/icon="res://icon.png"
 Services="*res://Singletons/Services.gd"
 TokenTransfer="*res://Singletons/TokenTransfer.gd"
 PlayerVerification="*res://Singletons/PlayerVerification.gd"
-PlayerManager="*res://Singletons/PlayerManager.gd"
+PlayerManager="res://Singletons/PlayerManager.gd"
 LobbyManager="*res://Singletons/LobbyManager.gd"
 Global="*res://Singletons/Global.gd"
 Logger="*res://Singletons/Logger.gd"
-WaitingRoom="*res://Singletons/WaitingRoom.gd"
+WaitingRoom="res://Singletons/WaitingRoom.gd"
 
 [physics]
 

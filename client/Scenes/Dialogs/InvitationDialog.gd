@@ -11,6 +11,8 @@ func show_invitation(inviter: String) -> void:
 	visible = true
 	invitation_label.text =  invitation_template % inviter
 
+func disable() -> void:
+	visible = false
 
 func _on_AcceptInviteButton_pressed() -> void:
 	visible = false

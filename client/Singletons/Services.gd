@@ -11,6 +11,7 @@ signal post_configure_game
 signal receive_world_state
 signal load_next_level
 signal player_left_game
+signal invitation_cancelled
 
 onready var playerList_screen: = get_node("/root/Main/Menu/PlayerList")
 onready var lobby_screen: = get_node("/root/Main/Menu/Lobby")
@@ -35,6 +36,7 @@ func _ready() -> void:
 	self.connect("receive_world_state", game_manager, "_on_receive_world_state")
 	self.connect("load_next_level", game_manager, "_on_load_next_level")
 	self.connect("player_left_game", game_manager, "_on_player_left_game")
+	self.connect("invitation_cancelled", playerList_screen, "_on_invitation_cancelled")
 	
 func _process(delta: float) -> void:
 	if get_custom_multiplayer() == null:
@@ -64,8 +66,8 @@ func _on_connection_failed():
 
 func _on_connection_succeeded() -> void:
 	print("Services: connecting to Services succeeded")
-	#get_verification()
-	rpc_id(1, "debug_game")
+	get_verification()
+	#rpc_id(1, "debug_game")
 
 func _on_server_disconnected() -> void:
 	print("Services: Server disconnected, attempting to reconnect")
@@ -95,10 +97,12 @@ remote func return_verification_result(result) -> void:
 # update player list
 #############################
 
+"""
+# deprecated
 func fetch_available_players() -> void:
 	print("fetch available players")
 	rpc_id(1, "fetch_available_players")
-
+"""
 
 remote func update_available_players(players: Array) -> void:
 	print("Services: update_available_players: received players: " + str(players))
@@ -107,6 +111,36 @@ remote func update_available_players(players: Array) -> void:
 ###############################
 # invitations
 ###############################
+
+remote func receive_invite(invitation: Dictionary) -> void:
+	print("Services: receive_invite")
+	emit_signal("invitation_received", invitation)
+
+remote func receive_invite_cancelled(invitation: Dictionary) -> void:
+	print("Services: receive_invite_cancelled")
+	emit_signal("invitation_cancelled", invitation)
+
+remote func receive_invite_rejected(invitation: Dictionary) -> void:
+	emit_signal("invitation_rejected", invitation)
+
+remote func receive_invite_error(message: String) -> void:
+	print("Services: receive_invite_error: " + message)
+
+func send_invite(invitee: String) -> void:
+	print("Services: send_invite")
+	rpc_id(0, "invite_send", invitee)
+
+func accept_invite(invitation: Dictionary) -> void:
+	rpc_id(0, "invite_accepted", invitation)
+
+func reject_invite(invitation: Dictionary) -> void:
+	rpc_id(0, "invite_rejected", invitation)
+
+func cancel_invite() -> void:
+	print("Services: cancel_invite")
+	rpc_id(0, "invite_cancelled")
+
+#####
 
 func invite(username: String) -> void:
 	rpc_id(0, "invite", Global.username, username)
@@ -124,6 +158,9 @@ func accept_invitation(invitation: Dictionary) -> void:
 
 remote func push_invite_rejected(invitation: Dictionary):
 	emit_signal("invitation_rejected", invitation)
+
+func cancel_invitation() -> void:
+	rpc_id(0, "cancel_invitation")
 
 #################################
 # Lobby
@@ -148,7 +185,6 @@ remote func lobby_update_selected_level(level_id: String) -> void:
 ##################################
 
 remote func pre_configure_game(game_obj: Dictionary):
-	print("pre_configuring_game")
 	emit_signal("pre_configure_game", game_obj)
 
 func done_preconfiguring(game_id: String):

@@ -55,3 +55,6 @@ func _on_Services_return_verification_result(result) -> void:
 
 func _on_Services_start_lobby(_lobby_state) -> void:
 	change_current_screen(lobby_screen)
+
+func game_started() -> void:
+	playerList_screen.game_started()

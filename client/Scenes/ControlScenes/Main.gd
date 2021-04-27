@@ -10,10 +10,11 @@ func _ready() -> void:
 	#debug_local("1")
 	
 	# debug without connecting to auth servers
-	Services.connect_to_services()
+	#Services.connect_to_services()
 
 func start_game():
 	menu.visible = false
+	menu.game_started()
 #	game_manager.visible = true
 	Global.in_game = true
 

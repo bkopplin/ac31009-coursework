@@ -28,6 +28,7 @@ func _on_pre_configure_game(game_obj: Dictionary) -> void:
 		selected_level: ID of the selected level
 	}
 	"""
+	# TODO
 	if not game_obj.has("selected_level"):
 		pass
 	

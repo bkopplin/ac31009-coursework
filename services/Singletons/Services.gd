@@ -1,25 +1,43 @@
 extends Node
 
+signal player_requests_verification
+signal player_disconnected
+# Invitations
+signal invite_send
+signal invite_accepted
+signal invite_rejected
+signal invite_cancelled
+# Game
 signal done_preconfiguring
 signal receive_player_state
 signal exit_area_entered
 signal exit_area_left
 signal player_left_game
 
-onready var game_manager = get_node("/root/Main/GameManager")
+onready var main: = get_node("/root/Main")
+onready var game_manager: = get_node("/root/Main/GameManager")
+onready var tree: SceneTree = get_tree()
 
 var network = NetworkedMultiplayerENet.new()
 var m_api = MultiplayerAPI.new()
 var port = 2001
 var maxplayers = 200
-onready var tree: SceneTree = get_tree()
+
 
 func _ready() -> void:
+	self.connect("player_requests_verification", main, "_on_player_requests_verification")
+	self.connect("player_disconnected", main, "_on_player_disconnected")
+	# Invitations
+	self.connect("invite_accepted", main, "_on_invite_accepted")
+	self.connect("invite_send", main, "_on_invite_send")
+	self.connect("invite_cancelled", main, "_on_invite_cancelled")
+	self.connect("invite_rejected", main, "_on_invite_rejected")
+	# GameManager
 	self.connect("done_preconfiguring", game_manager, "_on_done_preconfiguring")
 	self.connect("receive_player_state", game_manager, "_on_receive_player_state")
 	self.connect("exit_area_entered", game_manager, "_on_exit_area_entered")
 	self.connect("exit_area_left", game_manager, "_on_exit_area_left")
-	self.connect("player_left_game", game_manager, "_on_player_left_game")
+	self.connect("player_left_game", main, "_on_player_left_game")
 
 func _process(delta) -> void:
 	if get_custom_multiplayer() == null:
@@ -45,9 +63,8 @@ func _on_peer_connected(_client_id) -> void:
 
 
 func _on_peer_disconnected(client_id) -> void:
-	Logger.info(str(client_id) + " disconnected")
-	PlayerManager.player_left_game(client_id)
-	emit_signal("player_left_game", client_id)
+	emit_signal("player_disconnected", client_id)
+	#emit_signal("player_left_game", client_id)
 
 
 #############################
@@ -55,17 +72,12 @@ func _on_peer_disconnected(client_id) -> void:
 #############################
 
 remote func verify(token: String, username: String) -> void:
-	var player_id = custom_multiplayer.get_rpc_sender_id()
-	print("Services: verify: username=" + username + ", token=" + token)
-	var verified = PlayerVerification.verify(token, username)
-	print(verified)
-	if verified:
-		print(username + " verified.")
-		PlayerManager.player_connected(username, player_id)
-	
-	print("verify: player_id: " + str(player_id))
-	rpc_id(player_id, "return_verification_result", verified)
+	var client_id = custom_multiplayer.get_rpc_sender_id()
+	emit_signal("player_requests_verification", client_id, token, username)
 
+func return_verification_result(client_id: int, result) -> void:
+	rpc_id(client_id, "return_verification_result", result)
+	
 #############################
 # update player list
 #############################
@@ -73,20 +85,49 @@ remote func verify(token: String, username: String) -> void:
 func update_waitingroom(client_id: int, players: Array) -> void:
 	rpc_id(client_id, "update_available_players", players)
 
+"""
 # deprecated
-#func update_available_players() -> void:
-#	var p = PlayerManager.get_available_users()
-#	rpc_id(0, "update_available_players", p)
-
 remote func fetch_available_players() -> void:
 	print("fetch_available_players")
 	var client_id = custom_multiplayer.get_rpc_sender_id()
 	var p = PlayerManager.get_available_users()
 	rpc_id(client_id, "update_available_players", p)
+"""
 
 #############################
 # Invitations
 #############################
+
+remote func invite_send(invitee: String) -> void:
+	var client_id = custom_multiplayer.get_rpc_sender_id()
+	emit_signal("invite_send", client_id, invitee)
+
+remote func invite_accepted(invitation: Dictionary) -> void:
+	emit_signal("invite_accepted", invitation)
+
+remote func invite_rejected(invitation: Dictionary) -> void:
+	emit_signal("invite_rejected", invitation)
+
+remote func invite_cancelled() -> void:
+	var client_id = custom_multiplayer.get_rpc_sender_id()
+	emit_signal("invite_cancelled", client_id)
+
+
+func send_invite(client_id: int, invitation: Dictionary) -> void:
+	rpc_id(client_id, "receive_invite", invitation)
+
+func send_invite_rejected(client_id: int, invitation: Dictionary) -> void:
+	rpc_id(client_id, "receive_invite_rejected", invitation)
+
+func send_invite_cancelled(client_id: int, invitation: Dictionary) -> void:
+	Logger.debug("Services: send_invite_cancelled to " + str(client_id))
+	rpc_id(client_id, "receive_invite_cancelled", invitation)
+
+func send_invite_error(client_id: int, message: String) -> void:
+	rpc_id(client_id, "receive_invite_error", message)
+
+
+"""
 
 remote func invite(inviter: String, invitee: String) -> void:
 	print("received invite")
@@ -120,11 +161,14 @@ remote func accept_invite(invitation: Dictionary) -> void:
 	print("invitation accepted: " + str(invitation))
 	PlayerManager.remove_invitation(invitation)
 	LobbyManager.start_lobby(invitation)
+	
+"""
 
 #####################################
 # Lobby
 #####################################
-
+"""
+# Deprecated
 func start_lobby(client_id: int, lobby_state: Dictionary) -> void:
 	Logger.debug("sending start lobby to " + str(client_id))
 	rpc_id(client_id, "start_lobby", lobby_state)
@@ -139,6 +183,7 @@ remote func lobby_change_level(lobby_id: int, level_id: String) -> void:
 
 func lobby_update_selected_level(client_id:int, level_id: String) -> void:
 	rpc_id(client_id, "lobby_update_selected_level", level_id)
+"""
 ######################################
 # Game
 ######################################
@@ -182,7 +227,7 @@ func player_left_game(client_id: int) -> void:
 #########################################
 # debug
 #########################################
-
+"""
 remote func debug_game() -> void:
 	var client_id = custom_multiplayer.get_rpc_sender_id()
 	print(PlayerManager.available_players.keys().size())
@@ -196,3 +241,4 @@ remote func debug_game() -> void:
 	else:
 		print("first client connected to debug_game")
 		PlayerManager.player_connected("Player1", client_id)
+"""
