@@ -20,7 +20,7 @@
 [ext_resource path="res://assets/Background/Parralax/backgroundColorGrass.png" type="Texture" id=18]
 [ext_resource path="res://assets/Background/Elements/Retina/treeSmall_green3.png" type="Texture" id=19]
 [ext_resource path="res://assets/Background/Elements/Retina/tree.png" type="Texture" id=20]
-[ext_resource path="res://Scenes/Sensors/Hint.tscn" type="PackedScene" id=21]
+[ext_resource path="res://Scenes/Objects/Coin.tscn" type="PackedScene" id=21]
 [ext_resource path="res://assets/uipack/Buttons/grey_button11.png" type="Texture" id=22]
 [ext_resource path="res://assets/uipack/icons/arrowUp.png" type="Texture" id=23]
 [ext_resource path="res://assets/uipack/icons/arrowLeft.png" type="Texture" id=24]
@@ -123,7 +123,7 @@ position = Vector2( 212.407, 380.287 )
 position = Vector2( 1433.79, 413.254 )
 
 [node name="PressurePlateGreen" parent="Sensors" instance=ExtResource( 5 )]
-position = Vector2( 582.219, 415.373 )
+position = Vector2( 1539.97, 413.254 )
 
 [node name="PressurePlateBlue2" parent="Sensors" instance=ExtResource( 4 )]
 position = Vector2( 3788.58, 420.844 )
@@ -228,17 +228,79 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Hint1" parent="Hints" instance=ExtResource( 21 )]
-position = Vector2( 487.904, 357.796 )
+[node name="Coins" type="Node2D" parent="."]
 
-[node name="CollisionShape2D" parent="Hints/Hint1/Area2D" index="0"]
-visible = false
+[node name="Coin" parent="Coins" instance=ExtResource( 21 )]
+position = Vector2( 1431.75, 351.585 )
 
-[node name="HintText" parent="Hints/Hint1" index="1"]
-margin_left = 74.2772
-margin_top = -48.9057
-margin_right = 186.277
-margin_bottom = -16.9057
+[node name="Coin2" parent="Coins" instance=ExtResource( 21 )]
+position = Vector2( 1430.99, 297.436 )
+
+[node name="Coin3" parent="Coins" instance=ExtResource( 21 )]
+position = Vector2( 1430.99, 241.436 )
+
+[node name="Coin4" parent="Coins" instance=ExtResource( 21 )]
+position = Vector2( 1534.99, 353.436 )
+
+[node name="Coin5" parent="Coins" instance=ExtResource( 21 )]
+position = Vector2( 1534.99, 297.436 )
+
+[node name="Coin6" parent="Coins" instance=ExtResource( 21 )]
+position = Vector2( 1534.99, 241.436 )
+
+[node name="Coin7" parent="Coins" instance=ExtResource( 21 )]
+position = Vector2( 1734.99, 329.436 )
+
+[node name="Coin8" parent="Coins" instance=ExtResource( 21 )]
+position = Vector2( 1838.99, 281.436 )
+
+[node name="Coin9" parent="Coins" instance=ExtResource( 21 )]
+position = Vector2( 1958.99, 281.436 )
+
+[node name="Coin10" parent="Coins" instance=ExtResource( 21 )]
+position = Vector2( 3782.99, 345.436 )
+
+[node name="Coin11" parent="Coins" instance=ExtResource( 21 )]
+position = Vector2( 3782.99, 289.436 )
+
+[node name="Coin12" parent="Coins" instance=ExtResource( 21 )]
+position = Vector2( 3782.99, 233.436 )
+
+[node name="Coin13" parent="Coins" instance=ExtResource( 21 )]
+position = Vector2( 3462.99, 553.436 )
+
+[node name="Coin14" parent="Coins" instance=ExtResource( 21 )]
+position = Vector2( 3510.99, 609.436 )
+
+[node name="Coin15" parent="Coins" instance=ExtResource( 21 )]
+position = Vector2( 3598.99, 625.436 )
+
+[node name="Coin16" parent="Coins" instance=ExtResource( 21 )]
+position = Vector2( 4662.99, 401.436 )
+
+[node name="Coin17" parent="Coins" instance=ExtResource( 21 )]
+position = Vector2( 4606.99, 337.436 )
+
+[node name="Coin18" parent="Coins" instance=ExtResource( 21 )]
+position = Vector2( 4518.99, 321.436 )
+
+[node name="Coin19" parent="Coins" instance=ExtResource( 21 )]
+position = Vector2( 4846.99, 729.436 )
+
+[node name="Coin20" parent="Coins" instance=ExtResource( 21 )]
+position = Vector2( 4846.99, 665.436 )
+
+[node name="Coin21" parent="Coins" instance=ExtResource( 21 )]
+position = Vector2( 4846.99, 601.436 )
+
+[node name="Coin22" parent="Coins" instance=ExtResource( 21 )]
+position = Vector2( 5246.99, 777.436 )
+
+[node name="Coin23" parent="Coins" instance=ExtResource( 21 )]
+position = Vector2( 5174.99, 777.436 )
+
+[node name="Coin24" parent="Coins" instance=ExtResource( 21 )]
+position = Vector2( 5102.99, 777.436 )
 [connection signal="activated" from="Sensors/PressurePlateBlue" to="Objects/Bridge" method="_on_activated"]
 [connection signal="deactivated" from="Sensors/PressurePlateBlue" to="Objects/Bridge" method="_on_deactivated"]
 [connection signal="activated" from="Sensors/PressurePlateGreen" to="Objects/Bridge" method="_on_activated"]
@@ -247,5 +309,3 @@ margin_bottom = -16.9057
 [connection signal="deactivated" from="Sensors/PressurePlateBlue2" to="Objects/Platform" method="show"]
 [connection signal="activated" from="Sensors/PressurePlateGreen2" to="Objects/Platform2" method="hide"]
 [connection signal="deactivated" from="Sensors/PressurePlateGreen2" to="Objects/Platform2" method="show"]
-
-[editable path="Hints/Hint1"]

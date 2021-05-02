@@ -59,11 +59,16 @@ func _on_invite_accepted(invitation: Dictionary) -> void:
 		Services.send_invite_cancelled(old_invite.invitee_id, old_invite)
 		invitations.remove_invite(invitation.invitee_id)
 	
+	# TODO remove all invitations that the inviter is associated with
+	
 	waitingroom.remove_client(invitation.invitee_id)
 	waitingroom.remove_client(invitation.inviter_id)
 	# Start Game
-	var l = LobbyManager.create_new_lobby(invitation, LobbyManager.gen_lobby_id())
-	game_manager.start_game(l)
+	var players = [
+		{"username": invitation.inviter, "id": invitation.inviter_id, "colour": Global.COLOUR_GREEN}, 
+		{"username": invitation.invitee, "id": invitation.invitee_id, "colour": Global.COLOUR_BLUE}
+		]
+	game_manager.start_game("1", players)
 
 func _on_invite_cancelled(client_id: int) -> void:
 	Logger.debug("Main: _on_invite_cancelled")

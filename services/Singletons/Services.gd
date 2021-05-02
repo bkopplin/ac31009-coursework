@@ -64,8 +64,6 @@ func _on_peer_connected(_client_id) -> void:
 
 func _on_peer_disconnected(client_id) -> void:
 	emit_signal("player_disconnected", client_id)
-	#emit_signal("player_left_game", client_id)
-
 
 #############################
 # Verification
@@ -84,15 +82,6 @@ func return_verification_result(client_id: int, result) -> void:
 
 func update_waitingroom(client_id: int, players: Array) -> void:
 	rpc_id(client_id, "update_available_players", players)
-
-"""
-# deprecated
-remote func fetch_available_players() -> void:
-	print("fetch_available_players")
-	var client_id = custom_multiplayer.get_rpc_sender_id()
-	var p = PlayerManager.get_available_users()
-	rpc_id(client_id, "update_available_players", p)
-"""
 
 #############################
 # Invitations
@@ -126,64 +115,6 @@ func send_invite_cancelled(client_id: int, invitation: Dictionary) -> void:
 func send_invite_error(client_id: int, message: String) -> void:
 	rpc_id(client_id, "receive_invite_error", message)
 
-
-"""
-
-remote func invite(inviter: String, invitee: String) -> void:
-	print("received invite")
-	var inviter_id = custom_multiplayer.get_rpc_sender_id()
-	PlayerManager.invite(inviter, invitee, inviter_id)
-
-func send_invitation(invitation: Dictionary) -> void:
-	print("sending out invitation")
-	var client_id = invitation.invitee_id
-	rpc_id(client_id, "push_invite", invitation)
-
-func send_reject_invite(invitation: Dictionary):
-	print("Services: send_reject_invite")
-	var client_id = invitation.inviter_id
-	rpc_id(client_id, "push_invite_rejected", invitation)
-
-remote func reject_invite(invitation: Dictionary) -> void:
-	send_reject_invite(invitation)
-
-remote func accept_invitation(invitation: Dictionary) -> void:
-	print("invitation accepted")
-	# DEBUG SETTING
-	# uncomment to use lobby
-#	PlayerManager.remove_invitation(invitation)
-	#LobbyManager.start_lobby(invitation)
-	
-	var l = LobbyManager.create_new_lobby(invitation, LobbyManager.gen_lobby_id())
-	game_manager.start_game(l)
-
-remote func accept_invite(invitation: Dictionary) -> void:
-	print("invitation accepted: " + str(invitation))
-	PlayerManager.remove_invitation(invitation)
-	LobbyManager.start_lobby(invitation)
-	
-"""
-
-#####################################
-# Lobby
-#####################################
-"""
-# Deprecated
-func start_lobby(client_id: int, lobby_state: Dictionary) -> void:
-	Logger.debug("sending start lobby to " + str(client_id))
-	rpc_id(client_id, "start_lobby", lobby_state)
-
-remote func ready_button_pressed(lobby_id: int, is_ready: bool) -> void:
-	var client_id = custom_multiplayer.get_rpc_sender_id()
-	LobbyManager.ready_button_pressed(lobby_id, is_ready, client_id)
-
-remote func lobby_change_level(lobby_id: int, level_id: String) -> void:
-	var client_id = custom_multiplayer.get_rpc_sender_id()
-	LobbyManager.change_level(client_id, lobby_id, level_id)
-
-func lobby_update_selected_level(client_id:int, level_id: String) -> void:
-	rpc_id(client_id, "lobby_update_selected_level", level_id)
-"""
 ######################################
 # Game
 ######################################

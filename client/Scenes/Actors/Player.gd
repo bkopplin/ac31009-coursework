@@ -42,7 +42,6 @@ func generate_player_state() -> void:
 
 
 func set_colour(_colour: String) -> void:
-	print("set color " + _colour)
 	colour = _colour
 	var s = Sprite.new()
 	if colour == "blue":

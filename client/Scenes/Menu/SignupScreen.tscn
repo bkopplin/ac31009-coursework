@@ -49,7 +49,7 @@ margin_top = 19.0
 margin_right = 190.0
 margin_bottom = 51.0
 custom_fonts/font = ExtResource( 4 )
-text = "Login"
+text = "sign up"
 
 [node name="MarginContainer3" type="MarginContainer" parent="SignupForm"]
 margin_top = 55.0

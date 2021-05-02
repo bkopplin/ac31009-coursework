@@ -97,13 +97,6 @@ remote func return_verification_result(result) -> void:
 # update player list
 #############################
 
-"""
-# deprecated
-func fetch_available_players() -> void:
-	print("fetch available players")
-	rpc_id(1, "fetch_available_players")
-"""
-
 remote func update_available_players(players: Array) -> void:
 	print("Services: update_available_players: received players: " + str(players))
 	emit_signal("update_available_players", players)

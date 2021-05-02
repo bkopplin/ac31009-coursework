@@ -4,33 +4,35 @@ onready var game_template: = preload("res://Scenes/GameTemplate.tscn")
 
 var player_in_game: Dictionary # player_id: game_id
 
-func start_game(lobby: Dictionary) -> void:
-	print("GameManager: starting game")
+func start_game(
+	initial_level: String,
+	players: Array
+	
+) -> void:
 	var new_game = game_template.instance()
-	new_game.name = str(gen_game_id())
-	new_game.current_level_id = lobby.selected_level
-	new_game.players = lobby.players
+	new_game.name = gen_game_id()
+	new_game.current_level_id = initial_level
+	new_game.players = players
 	add_child(new_game, true)
 	
 	var game_obj: Dictionary
 	game_obj.game_id = new_game.name
-	game_obj.players = lobby.players
-	game_obj.current_level = lobby.selected_level
+	game_obj.players = players
+	game_obj.current_level = initial_level
 	
-	for player in lobby.players:
+	for player in players:
 		player_in_game[player.id] = new_game.name
 		Services.pre_configure_game(player.id, game_obj)
-	
 
 func _on_done_preconfiguring(client_id: int, game_id: String) -> void:
 	print("done preconfiguring: " + str(client_id))
 	if has_node(game_id):
 		get_node(game_id)._on_done_preconfiguring(client_id)
 
-func gen_game_id() -> int:
+func gen_game_id() -> String:
 	randomize()
 	var n: int = randi() * 8
-	return n
+	return str(n)
 
 func _on_receive_player_state(game_id: String, client_id: int, player_state) -> void:
 	if has_node(game_id):

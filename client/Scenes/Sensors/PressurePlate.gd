@@ -9,7 +9,6 @@ onready var button_released: = get_node("Textures/ButtonReleased")
 
 
 func _on_body_entered(body: Node) -> void:
-	$AudioStreamPlayer.play(0)
 	emit_signal("activated")
 	button_released.visible = false
 	button_pressed.visible = true
