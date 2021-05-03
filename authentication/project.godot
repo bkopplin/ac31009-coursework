@@ -25,6 +25,7 @@ Database="*res://Scenes/Database.gd"
 TokenTransfer="*res://Scenes/TokenTransfer.gd"
 Logger="*res://Scenes/Logger.gd"
 Authenticate="*res://Scenes/Authenticate.gd"
+AuthHelper="*res://Scenes/AuthHelper.gd"
 
 [rendering]
 

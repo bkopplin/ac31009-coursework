@@ -50,7 +50,6 @@ func error_check() -> bool:
 		return false
 
 func _on_signup_result_received(token, result):
-	print("SignupScreen: in _on_signup_result_received: results: " + str(result))
 	if result:
 		Global.token = token
 		Services.connect_to_services()

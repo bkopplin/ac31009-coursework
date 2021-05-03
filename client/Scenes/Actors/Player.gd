@@ -61,7 +61,6 @@ func _get_configuration_warning() -> String:
 
 func _on_SpringBoardDetector_area_entered(area: Area2D) -> void:
 	velocity = calculate_jump(velocity, jump_factor)
-	print("_on_SpringBoardDetector_area_entered")
 
 func calculate_jump(linear_velocity: Vector2, jump_factor: float) -> Vector2:
 	linear_velocity.y = linear_velocity.y * -1 * jump_factor

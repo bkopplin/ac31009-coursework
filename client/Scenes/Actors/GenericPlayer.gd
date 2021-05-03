@@ -7,7 +7,6 @@ export var texture_blue: Texture
 var colour: String setget set_colour
 
 func set_colour(_colour: String) -> void:
-	print("set color " + _colour)
 	colour = _colour
 	var s = Sprite.new()
 	if colour == "blue":

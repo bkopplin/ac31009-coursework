@@ -24,18 +24,6 @@ func _ready() -> void:
 func set_active_sensors(n: int) -> void:
 	active_sensors = n if n >= 0 else 0
 
-"""
-func show() -> void:
-	self.active_sensors += 1
-	visible = true
-	collision_shape.set_deferred("disabled", false)
-
-func hide() -> void:
-	self.active_sensors -= 1
-	if active_sensors == 0:
-		visible = false
-		collision_shape.set_deferred("disabled", true)
-"""
 func _on_activated() -> void:
 	active_sensors += 1
 	if active_sensors == required_active_sensors:
@@ -44,7 +32,6 @@ func _on_activated() -> void:
 
 func _on_deactivated() -> void:
 	active_sensors -= 1
-	print(active_sensors)
 	if active_sensors == 0 and not (stays_activated and is_active):
 		is_active = false
 		action_deactivated.call_func()

@@ -46,7 +46,6 @@ func _process(delta: float) -> void:
 	custom_multiplayer.poll()
 
 func connect_to_services():
-	print("Services: connect_to_services: connecting")
 	network = NetworkedMultiplayerENet.new()
 	m_api = MultiplayerAPI.new()
 
@@ -60,17 +59,14 @@ func connect_to_services():
 	network.connect("server_disconnected", self, "_on_server_disconnected")
 
 func _on_connection_failed():
-	print("Services: connection to Services failed")
 	yield(get_tree().create_timer(2), "timeout")
 	connect_to_services()
 
 func _on_connection_succeeded() -> void:
-	print("Services: connecting to Services succeeded")
 	get_verification()
 	#rpc_id(1, "debug_game")
 
 func _on_server_disconnected() -> void:
-	print("Services: Server disconnected, attempting to reconnect")
 	emit_signal("services_disconnected")
 	connect_to_services()
 	
@@ -86,11 +82,9 @@ func disconnect_from_services() -> void:
 #############################
 
 remote func get_verification() -> void:
-	print("Services: get_verificaion: requested credentials")
 	rpc_id(1, "verify", Global.token, Global.username)
 
 remote func return_verification_result(result) -> void:
-	print("return_verification_result")
 	emit_signal("return_verification_result", result)
 
 #############################
@@ -98,7 +92,6 @@ remote func return_verification_result(result) -> void:
 #############################
 
 remote func update_available_players(players: Array) -> void:
-	print("Services: update_available_players: received players: " + str(players))
 	emit_signal("update_available_players", players)
 
 ###############################
@@ -106,11 +99,9 @@ remote func update_available_players(players: Array) -> void:
 ###############################
 
 remote func receive_invite(invitation: Dictionary) -> void:
-	print("Services: receive_invite")
 	emit_signal("invitation_received", invitation)
 
 remote func receive_invite_cancelled(invitation: Dictionary) -> void:
-	print("Services: receive_invite_cancelled")
 	emit_signal("invitation_cancelled", invitation)
 
 remote func receive_invite_rejected(invitation: Dictionary) -> void:
@@ -120,7 +111,6 @@ remote func receive_invite_error(message: String) -> void:
 	print("Services: receive_invite_error: " + message)
 
 func send_invite(invitee: String) -> void:
-	print("Services: send_invite")
 	rpc_id(0, "invite_send", invitee)
 
 func accept_invite(invitation: Dictionary) -> void:
@@ -130,7 +120,6 @@ func reject_invite(invitation: Dictionary) -> void:
 	rpc_id(0, "invite_rejected", invitation)
 
 func cancel_invite() -> void:
-	print("Services: cancel_invite")
 	rpc_id(0, "invite_cancelled")
 
 #####
@@ -139,14 +128,12 @@ func invite(username: String) -> void:
 	rpc_id(0, "invite", Global.username, username)
 
 remote func push_invite(invitation: Dictionary) -> void:
-	print("Services: push_invite: invitation received")
 	emit_signal("invitation_received", invitation)
 
 func reject_invitation(invitation: Dictionary) -> void:
 	rpc_id(0, "reject_invite", invitation)
 
 func accept_invitation(invitation: Dictionary) -> void:
-	print("calling Services.accept_invite")
 	rpc_id(0, "accept_invitation", invitation)
 
 remote func push_invite_rejected(invitation: Dictionary):
@@ -160,11 +147,9 @@ func cancel_invitation() -> void:
 #################################
 
 remote func start_lobby(lobby_state: Dictionary) -> void:
-	print("start_lobby: " + str(lobby_state))
 	emit_signal("start_lobby", lobby_state)
 
 func ready_button_pressed(lobby_id: int, is_ready: bool) -> void:
-	print("sending start game")
 	rpc_id(0, "ready_button_pressed", lobby_id, is_ready)
 
 func lobby_change_level(lobby_id: int, level_id: String) -> void:
@@ -184,7 +169,6 @@ func done_preconfiguring(game_id: String):
 	rpc_id(1, "done_preconfiguring", game_id)
 
 remote func post_configure_game() -> void:
-	print("received post configure game")
 	emit_signal("post_configure_game")
 
 func send_player_state(game_id: String, player_state: Dictionary) -> void:
@@ -207,6 +191,4 @@ remote func player_left_game() -> void:
 	
 func leave_game() -> void:
 	rpc_id(1, "leave_game")
-####################################
-# debug
-####################################
+

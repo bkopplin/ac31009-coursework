@@ -55,16 +55,13 @@ func _disconnect_from_gateway() -> void:
 		network.disconnect("connection_succeeded", self, "_on_connection_succeeded")
 
 func login_request(username: String, password: String) -> void:
-	print("Gateway: login_request(): sending login request")
 	_connect_to_gateway("send_login_request", [username, password])
 
 func send_login_request(params: Array) -> void:
 	rpc_id(1, "login_request", params[0], params[1])
 	
 remote func return_login_results(token: String, result: bool):
-	print("Gateway: return_login_results(): token=" + token + ", result=" + str(result) + ", username=" + str(Global.username))
 	emit_signal("login_result_received", token, result)
-	# menu.return_auth_results(token, result)
 	_disconnect_from_gateway()
 
 
@@ -73,10 +70,7 @@ func signup_request(params: Dictionary) -> void:
 	
 func send_signup_request(params: Dictionary) -> void:
 	rpc_id(1, "signup_request", params)
-	print("signup request send")
 	
 remote func return_signup_results(token: String, result: bool) -> void:
-	print("return_signup_results: token=" + token + ", result=" + str(result))
 	emit_signal("signup_result_received", token, result)
-#	menu.return_auth_results(token, result)
 	_disconnect_from_gateway()

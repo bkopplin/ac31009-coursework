@@ -9,8 +9,6 @@ var invitation_queue: Array # pending invitations
 
 func _on_InviteButton_pressed() -> void:
 	var selected = get_selected_item(available_players)
-	print("selected: ")
-	print(selected)
 	Services.send_invite(selected)
 	invitation_send_dialog.show_message(selected)
 
@@ -55,10 +53,7 @@ func _on_Services_services_disconnected() -> void:
 	show_error("Services disconnected")
 	
 func _on_invitation_cancelled(invitation: Dictionary) -> void:
-	print("PlayerList: _on_invitation_cancelled")
-	print(invitation_queue)
 	if invitation_queue[0].inviter_id == invitation.inviter_id:
-		print("invitation is now cancelled")
 		invitation_dialog.disable()
 	invitation_queue.erase(invitation)
 

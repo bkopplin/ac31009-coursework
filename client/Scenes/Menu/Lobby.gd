@@ -48,9 +48,6 @@ func _on_Services_lobby_update_selected(index: int) -> void:
 	var level_id: = ""
 	Services.lobby_change_level(lobby_state.lobby_id, level_id)
 
-func _on_LevelList_item_selected(index: int) -> void:
-	print("item selected")
-	# TODO send selected item accross
 
 func get_level_id(index: int) -> String:
 	return ""

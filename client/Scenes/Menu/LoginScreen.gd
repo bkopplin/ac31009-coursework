@@ -39,11 +39,8 @@ func error_check() -> bool:
 		return false
 
 func _on_login_result_received(token, result: bool):
-	print("LoginScreen: in _on_login_results_received: results: " + str(result))
 	if result == true:
-		print("connecting to services")
 		Global.token = token
 		Services.connect_to_services()
 	else:
-		print("showing error")
 		show_error("login failed")

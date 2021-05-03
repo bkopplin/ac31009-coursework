@@ -30,7 +30,6 @@ func load_config() -> void:
 	f.open(config_file, File.READ)
 	var config = JSON.parse(f.get_as_text())
 	if config.error != OK:
-		print("Error while parsing JSON: " + str(config.error))
 		f.close()
 		return
 	config = config.result

@@ -4,7 +4,6 @@ var network = NetworkedMultiplayerENet.new()
 var port = 2011
 var max_clients = 10
 onready var tree: SceneTree = get_tree()
-onready var auth_helper = get_node("AuthHelper")
 
 var certificate = load("res://Resources/Certificates/cert_authentication.crt")
 var key = load("res://Resources/Certificates/key_authentication.key")
@@ -29,8 +28,8 @@ func _on_peer_disconnected(client_id) -> void:
 
 
 remote func login_request(username: String, password: String, player_id: int) -> void:
-	var result: bool = auth_helper.authenticate(username, password)
-	var token = auth_helper.generate_random_token() if result else ""
+	var result: bool = AuthHelper.authenticate(username, password)
+	var token = AuthHelper.generate_random_token() if result else ""
 	rpc_id(tree.get_rpc_sender_id(), "return_login_results", token, result, player_id)
 	if result:
 		TokenTransfer.send_token(token, username)
@@ -38,8 +37,8 @@ remote func login_request(username: String, password: String, player_id: int) ->
 remote func signup_request(options: Dictionary, player_id: int) -> void:
 	var client_id = tree.get_rpc_sender_id()
 	Logger.info("received signup request")
-	var result = auth_helper.create_account(options)
-	var token = auth_helper.generate_random_token() if result else ""
+	var result = AuthHelper.create_account(options)
+	var token = AuthHelper.generate_random_token() if result else ""
 	rpc_id(client_id, "return_signup_results", token, result, player_id)
 	if result:
 		TokenTransfer.send_token(token, options.username)

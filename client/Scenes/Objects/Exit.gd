@@ -1,7 +1,6 @@
 extends Area2D
 
 func _on_body_entered(body: Node) -> void:
-	print("Loading next level")
 	Services.exit_area_entered()
 
 
