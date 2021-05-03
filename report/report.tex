@@ -81,7 +81,7 @@ This architectural pattern was mainly chosen because Godot is build around this 
 This pattern can be seen almost everywhere in the Client project. For instance, the scenes in the Levels folder make heavy use of this pattern. They all inherit from the superclass Level, which provides funcionality common to all levels. Composition can still be found in the individual level nodes, which hold different nodes that make up the level, such as platforms or pressure plates.
 
 \bigskip
-In order to decrease coupling between objects, I used Godot's build in signaling system, which acts as an observer pattern. It is used everywhere for communication between nodes where a Composition or Aggregation cannot be assumed, or when making calls to a Singleton. 
+In order to decrease coupling between objects, I used Godot's build in signaling system, which acts as an observer pattern. It is everywhere for communication between nodes where a Composition or Aggregation cannot be assumed, or when making calls to a Singleton. 
 
 This can be found in the Services.gd Singletons of both the Services and the Client project. When receiving a remote procedure call, they simply emit a signal. Before refactoring the entrie Services project, thich was done with Singletons and simple function calls, which made it very difficult to get invitations to work properly or to extend anything. 
 
@@ -123,5 +123,8 @@ In order to implement this feature, I created a new project CertGen which genera
 The reason for not encrypting communication between Client and Services is that encryptinge game data would take too much time. Moreover, protection agains hacking is done by the server, and would be even more improved if there was a server-side map, as already mentioned. There is still the chance of a man-in-the-middle attack when the token is transfered. This risk still exists because I couldn't find a way to toggle between encryption and plain text in Godot's Multiplayer API.Encrypting everything would not have been an issue because that would result the game in being impressively slow. However, the attacker would only be able to get a token, which only last 30 seconds, and cannot deduct the password from it. 
 
 As mentioned previously, there is very litte validation of player states because there is no server-side map implemented. As said previously, a server-side map would have taken care of most error checking by simulating the player movement with its physics engine.
+
+\section{Notes}
+Before playing the game, authentication.x86\_64 should be executed on the server first, then gateway.x86\_64 and services.x86\_64. Once this is done, the clients can be started. The client connects to servers at 127.0.0.1 by default. To change this behaviour, modify user://config.json (Please note that the file is created the first time your run the client, but you may also create it manually).
 
 \end{document}

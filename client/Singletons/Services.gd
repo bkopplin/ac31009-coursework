@@ -5,7 +5,6 @@ signal return_verification_result
 signal update_available_players
 signal invitation_received
 signal invitation_rejected
-signal start_lobby
 signal pre_configure_game
 signal post_configure_game
 signal receive_world_state
@@ -14,7 +13,6 @@ signal player_left_game
 signal invitation_cancelled
 
 onready var playerList_screen: = get_node("/root/Main/Menu/PlayerList")
-onready var lobby_screen: = get_node("/root/Main/Menu/Lobby")
 onready var menu: = get_node("/root/Main/Menu")
 onready var game_manager: = get_node("/root/Main/GameManager")
 
@@ -29,7 +27,6 @@ func _ready() -> void:
 	self.connect("update_available_players", playerList_screen, "update_available_players")
 	self.connect("invitation_received", playerList_screen, "_on_Services_invitation_received")
 	self.connect("invitation_rejected", playerList_screen, "_on_Services_invitation_rejected")
-	self.connect("start_lobby", lobby_screen, "_on_Services_start_lobby")
 	self.connect("start_lobby", menu, "_on_Services_start_lobby")
 	self.connect("pre_configure_game", game_manager, "_on_pre_configure_game")
 	self.connect("post_configure_game", game_manager, "_on_post_configure_game")
@@ -141,22 +138,6 @@ remote func push_invite_rejected(invitation: Dictionary):
 
 func cancel_invitation() -> void:
 	rpc_id(0, "cancel_invitation")
-
-#################################
-# Lobby
-#################################
-
-remote func start_lobby(lobby_state: Dictionary) -> void:
-	emit_signal("start_lobby", lobby_state)
-
-func ready_button_pressed(lobby_id: int, is_ready: bool) -> void:
-	rpc_id(0, "ready_button_pressed", lobby_id, is_ready)
-
-func lobby_change_level(lobby_id: int, level_id: String) -> void:
-	rpc_id(1, "lobby_change_level", lobby_id, level_id)
-
-remote func lobby_update_selected_level(level_id: String) -> void:
-	pass
 
 ##################################
 # Game
