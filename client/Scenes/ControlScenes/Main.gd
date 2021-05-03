@@ -5,11 +5,12 @@ onready var game_manager = get_node("GameManager")
 
 func _ready() -> void:
 	print("starting game")
+	Global.load_config()
 	set_physics_process(false)
 
 	#debug_local("1")
 	
-	# debug without connecting to auth servers
+	# debug without connecting to auth servers 
 	#Services.connect_to_services()
 
 func start_game():

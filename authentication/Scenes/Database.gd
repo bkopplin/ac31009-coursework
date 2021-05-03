@@ -19,7 +19,7 @@ func get_user(username: String) -> Directory:
 	db.open(db_path, File.READ)
 	var users = JSON.parse(db.get_as_text())
 	if users.error != OK:
-		print("in get_user(): Error while parsing JSON: " + users.error)
+		print("in get_user(): Error while parsing JSON: " + str(users.error))
 		db.close()
 		return null
 	users = users.result
