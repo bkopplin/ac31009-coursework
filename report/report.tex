@@ -1,15 +1,21 @@
 \documentclass{article}
 \usepackage[a4paper, margin=3cm]{geometry}
+\usepackage{graphicx}
+\graphicspath{ {./pics/} }
 
 \begin{document}
 
 \section{Playtesting}
-The first game concept I came up with was a turn-based three-dimensional boardgame. I built a physical prototype from paper, chess pieces and other pieces. To simulate a three dimensional space, I drew grids on three papers witch I put next to one another. Initialy, I was moving the pieces around and tried to come up with rules, which didn't quite work out, so I asked my brother to play with me (that was on Feburary 26). With some initial difficulties (he didn't quite know what I was expecting him to do), we finally came up with a set of rules. Two days later I asked another family member for help so that I can try out different variations of the game, including a hexagon based board and different starting positions. Playing the game with a different person was a completely different experience, and a lot of flaws were discovered in the rules. The biggest issue was that my playtester didn't quite understand the goal. Due to this experience, and my insistance on using GoDot as a game engine, which, as I learned, might not be the best choice for 3D games, I chose to opt for different idea, a seagul simulator.
+The first game concept I came up with was a turn-based three-dimensional boardgame. I built a physical prototype from paper, chess pieces and other pieces. To simulate a three dimensional space, I drew grids on three papers witch I put next to one another. 
+
+\includegraphics[width=10cm]{prototype}
+
+Initialy, I was moving the pieces around and tried to come up with rules, which didn't quite work out, so I asked my brother to play with me (that was on Feburary 26). With some initial difficulties (he didn't quite know what I was expecting him to do), we finally came up with a set of rules. Two days later I asked another family member for help so that I can try out different variations of the game, including a hexagon based board and different starting positions. Playing the game with a different person was a completely different experience, and a lot of flaws were discovered in the rules. The biggest issue was that my playtester didn't quite understand the goal. Due to this experience, and my insistance on using GoDot as a game engine, which, as I learned, might not be the best choice for 3D games, I chose to opt for a different idea: a seagul simulator.
 
 \bigskip
-The next concept was about stealing food from other people and completing quests. I did draw a map on paper and made some seagulls and humans from cardboard, tested it out myself, and two days later, I conducted another playtesting session with my brother. Stealing food became boring very soon, however he was very keen on completing the quests. 
+The next concept was about stealing food from other people and completing quests. I did draw a map on paper and made some seagulls and humans from cardboard, tested it out myself, and two days later, I conducted another playtesting session with my brother. Stealing food became boring very soon, however he was very motivated to complete quests. 
 
-Once I was confident that the game idea had potential, I started to build a quick digital prototype. I quickly realized however that the art style I was using, which was pixel art, was causing me a lot of issues: it was very difficult to find good assets, especially because I couldn't draw them myself, and the assets had all different resolution, meaning that they didn't match at all. Frustrated and not willing to get any more headaches from aesthetical issues, I descided to change the game concept again.
+Once I was confident that the game idea had potential, I started to build a quick digital prototype. I quickly realized however that the art style I was using, which was pixel art, was causing me a lot of issues: it was very difficult to find good assets, especially because I couldn't draw them myself, and the assets had different resolution, meaning that they didn't match at all. Frustrated and not willing to get any more headaches from aesthetical issues, I descided to change the game concept again.
 
 \bigskip
 I finally found a complete asset pack that I liked, and I descided to create a multiplayer platformer. I didn't do any physical prototyping, but created a digital prototype to create levels for assignment 1, which helped me a lot to test the gameplay for myself. 
@@ -18,8 +24,8 @@ Then, I started to implement the authentication system first, and the invitation
 Looking back at how I approached the project, it would have been much better if I had initially focused on the actual game itself, and not implementing user screens first. This approach would have allowed me to start with the playtesting process much earlier. Moreover, it would have forced me to think about encapsulation and decoupling right from the start. 
 
 \bigskip
-On April 18, I run the first digital playtesting session, in which I wanted to find out if the game was overall playable. Authentication, inviting players, starting the game from a lobby and playing two levels, as well as switching to the next level, did already work at this stage. It should be noted that the bridge in level 1 did still work as was described in the project plan. My brother and his girlfriend happily volunteered to play the game on two separate computers, and were able to see the other's screen. Just like any future session, I started off by telling them how playtesting is going to help me, that it's an unfinished prototype and that all their mistakes are going to help me. I also asked them to think out loud.
-I continued by asking question about their gaming habits: my brother regularly plays FPS, his girlfriend noting. 
+On April 18, I run the first digital playtesting session, in which I wanted to find out if the game was overall playable. Authentication, inviting players, starting the game from a lobby and playing two levels, as well as switching to the next level, did already work at this stage. It should be noted that the bridge in level 1 did still work as was described in the project plan. My brother and his girlfriend happily volunteered to play the game on two separate computers. Just like in the remaining session, I started off by telling them how playtesting is going to help me, that it's an unfinished prototype and that all their mistakes are going to help me. I also asked them to think out loud.
+I continued by asking question about their gaming habits: my brother regularly plays FPS, his girlfriend nothing. 
 
 Opon loggin in, they were confused by the font which is all capital letters. I later changed the authentication system to treat everything as lower case letters, which solved this issue and has the benefit that players with usernames that only differ in case cannot be accidentally confused anymore, an issue that occurs with almost every system that supports usernames.
 
@@ -125,6 +131,6 @@ The reason for not encrypting communication between Client and Services is that 
 As mentioned previously, there is very litte validation of player states because there is no server-side map implemented. As said previously, a server-side map would have taken care of most error checking by simulating the player movement with its physics engine.
 
 \section{Notes}
-Before playing the game, authentication.x86\_64 should be executed on the server first, then gateway.x86\_64 and services.x86\_64. Once this is done, the clients can be started. The client connects to servers at 127.0.0.1 by default. To change this behaviour, modify user://config.json (Please note that the file is created the first time your run the client, but you may also create it manually).
+Before playing the game, authentication.x86\_64 should be executed on the server first, then gateway.x86\_64 and services.x86\_64. Once this is done, the clients can be started. The client connects to servers at 127.0.0.1 by default. To change this behaviour, modify user://config.json (Please note that the file is created the first time your run the client, but can also be created it manually).
 
 \end{document}
