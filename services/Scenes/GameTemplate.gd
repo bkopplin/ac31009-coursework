@@ -11,7 +11,7 @@ func _ready() -> void:
 	self.set_physics_process(false)
 
 func _on_done_preconfiguring(client_id: int) -> void:
-	print("in Game: _on_done_preconfiguring: " + str(client_id))
+	Logger.debug("in Game: _on_done_preconfiguring: " + str(client_id))
 	players_done_preconfiguring.append(client_id)
 	if players_done_preconfiguring.size() == 2:
 		for client_id in players_done_preconfiguring:
@@ -27,7 +27,7 @@ func _on_receive_player_state(client_id: int, player_state):
 
 func _physics_process(delta: float):
 	if player_state_buffer.empty():
-		print("player state buffer empty")
+		Logger.debug("player state buffer empty")
 		return
 	
 	world_state.t = OS.get_system_time_msecs()
@@ -54,4 +54,4 @@ func _on_exit_area_left(client_id: int) -> void:
 		in_exit_area.erase(client_id)
 
 func _on_player_left_game(client_id: String) -> void:
-	print("player " + str(client_id) + "disconnected")
+	Logger.info("player " + str(client_id) + "disconnected")

@@ -32,16 +32,16 @@ func connect_to_token_transfer():
 	network.connect("server_disconnected", self, "_reconnect")
 
 func _on_connection_failed() -> void:
-	print("connection to Authentication Server failed")
+	Logger.warning("connection to Authentication Server failed")
 	yield(get_tree().create_timer(2), "timeout")
 	_reconnect()
 
 
 func _on_connection_succeeded() -> void:
-	print("connection to Authentication Server succeeded")
+	Logger.warning("connection to Authentication Server succeeded")
 
 func _reconnect() -> void:
-	print("attempting to reconnect to TokenTranfer")
+	Logger.warning("attempting to reconnect to TokenTranfer")
 	network.close_connection()
 	yield(get_tree().create_timer(2), "timeout")
 	connect_to_token_transfer()

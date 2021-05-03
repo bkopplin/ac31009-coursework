@@ -155,21 +155,4 @@ remote func leave_game() -> void:
 
 func player_left_game(client_id: int) -> void:
 	rpc_id(client_id, "player_left_game")
-#########################################
-# debug
-#########################################
-"""
-remote func debug_game() -> void:
-	var client_id = custom_multiplayer.get_rpc_sender_id()
-	print(PlayerManager.available_players.keys().size())
-	if PlayerManager.available_players.keys().size() == 1:
-		print("second client connected to debug_game, starting game")
-		PlayerManager.player_connected("Player2", client_id)
-		var temp: Dictionary
-		temp.players = [{"username": "player1", "id": PlayerManager.available_players["Player1"], "colour": "green"}, {"username": "player2", "id": client_id, "colour": "blue"}]
-		temp.selected_level = "1"
-		get_node("/root/Main/GameManager").start_game(temp)
-	else:
-		print("first client connected to debug_game")
-		PlayerManager.player_connected("Player1", client_id)
-"""
+

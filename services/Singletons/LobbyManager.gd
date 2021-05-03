@@ -44,7 +44,7 @@ func ready_button_pressed(lobby_id: int, is_ready: bool, client_id: int) -> void
 
 func change_level(client_id: int, lobby_id: int, level_id: String):
 	if not Global.levels.keys().has(level_id):
-		print("level id not in available levels")
+		Logger.warning("level id not in available levels")
 		return
 	lobbies[lobby_id].selected_level = level_id
 	for player in lobbies[lobby_id].players:

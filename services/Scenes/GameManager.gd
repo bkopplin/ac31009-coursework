@@ -25,7 +25,7 @@ func start_game(
 		Services.pre_configure_game(player.id, game_obj)
 
 func _on_done_preconfiguring(client_id: int, game_id: String) -> void:
-	print("done preconfiguring: " + str(client_id))
+	Logger.debug("done preconfiguring: " + str(client_id))
 	if has_node(game_id):
 		get_node(game_id)._on_done_preconfiguring(client_id)
 
@@ -39,7 +39,7 @@ func _on_receive_player_state(game_id: String, client_id: int, player_state) -> 
 		get_node(game_id)._on_receive_player_state(client_id, player_state)
 
 func _on_level_finished(game_id: String, client_id: int) -> void:
-	print("level finished in GameManger")
+	Logger.debug("level finished in GameManger")
 	if has_node(game_id):
 		get_node(game_id)._on_level_finished(game_id, client_id)
 
@@ -52,7 +52,7 @@ func _on_exit_area_left(game_id: String, client_id: int) -> void:
 		get_node(game_id)._on_exit_area_left(client_id)
 
 func _on_player_left_game(client_id: int):
-	print("GameManager: _on_player_left_game: player disconnected, player_in_game: " + str(player_in_game))
+	Logger.debug("GameManager: _on_player_left_game: player disconnected, player_in_game: " + str(player_in_game))
 	if not player_in_game.has(client_id):
 		return
 		

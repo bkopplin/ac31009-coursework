@@ -30,16 +30,16 @@ func start_tokentransfer() -> void:
 	custom_multiplayer.set_root_node(self)
 	custom_multiplayer.set_network_peer(network)
 	
-	print("TokenTransfer listening on port " + str(port))
+	Logger.info("TokenTransfer listening on port " + str(port))
 	network.connect("peer_connected", self, "_on_peer_connected")
 	network.connect("peer_disconnected", self, "_on_peer_disconnected")
 
 func _on_peer_connected(client_id) -> void:
-	print(str(client_id) + " connected to TokenTransfer")
+	Logger.info(str(client_id) + " connected to TokenTransfer")
 	connected_services.append(client_id)
 
 func _on_peer_disconnected(client_id) -> void:
-	print (str(client_id) + " disconnected to TokenTranfer")
+	Logger.info(str(client_id) + " disconnected from TokenTranfer")
 	connected_services.remove(client_id)
 
 func send_token(token, username) -> void:
@@ -47,7 +47,7 @@ func send_token(token, username) -> void:
 	if service >= 0:
 		rpc_id(service, "receive_token", token, username)
 	else:
-		print("Error: no Service server connected to TokenTransfer")
+		Logger.warning("Warning: no Service server connected to TokenTransfer")
 
 func get_best_service() -> int:
 	# TODO implement load-balancing for services and redirect players to appropriate Server

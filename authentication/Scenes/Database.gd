@@ -19,7 +19,7 @@ func get_user(username: String) -> Directory:
 	db.open(db_path, File.READ)
 	var users = JSON.parse(db.get_as_text())
 	if users.error != OK:
-		print("in get_user(): Error while parsing JSON: " + str(users.error))
+		Logger.error("in get_user(): Error while parsing JSON: " + str(users.error))
 		db.close()
 		return null
 	users = users.result
@@ -40,26 +40,23 @@ func add_user(userparams: Dictionary) -> bool:
 	"""
 	adds a user to the user database
 	"""
-	print("add_user")
 	db.open(db_path, File.READ_WRITE)
 	var users = JSON.parse(db.get_as_text())
 	if users.error != OK:
-		print("in add_user(): error while parsing JSON: " + users.error)
+		Logger.error("in add_user(): error while parsing JSON: " + users.error)
 		db.close()
 		return false
 	users = users.result
 	print(users)
 	for user in users:
 		if userparams.username == user.username:
-			print("in add_user(): user " + userparams.username + " already exists")
+			Logger.error("in add_user(): user " + userparams.username + " already exists")
 			db.close()
 			return false 
-	print("creating new user")
 	var new_user: Dictionary
 	new_user.username = userparams.username
 	new_user.password = userparams.password.sha256_text()
 	users.append(new_user)
-	print("saving to file")
 	db.store_string(JSON.print(users))
 	db.close()
 	return true

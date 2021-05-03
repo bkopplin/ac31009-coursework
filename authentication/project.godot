@@ -16,13 +16,15 @@ _global_script_class_icons={
 [application]
 
 config/name="Authentication"
-run/main_scene="res://Scenes/Authenticate.tscn"
+run/main_scene="res://Scenes/Main.tscn"
 config/icon="res://icon.png"
 
 [autoload]
 
 Database="*res://Scenes/Database.gd"
 TokenTransfer="*res://Scenes/TokenTransfer.gd"
+Logger="*res://Scenes/Logger.gd"
+Authenticate="*res://Scenes/Authenticate.gd"
 
 [rendering]
 

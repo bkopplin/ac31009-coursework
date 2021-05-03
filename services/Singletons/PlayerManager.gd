@@ -6,15 +6,13 @@ var invitations: Dictionary # {sender: {timestamp, receiver}}
 func player_connected(username: String, client_id: int):
 	add_to_waitingroom(username, client_id)
 	update_waitingroom()
-	#Services.update_available_players()
 	
 
 func player_left_game(player_id: int) -> void:
 	Logger.info("player " + str(player_id) + " disconnected")
 	if remove_from_waitingroom(player_id):
 		update_waitingroom()
-	# elif in lobby
-	# elif in game
+
 	
 func is_in_waitingroom(player_id: int) -> bool:
 	if available_players.values().has(player_id):
@@ -53,9 +51,8 @@ func get_available_users() -> Array:
 	return available_players.keys()
 
 func invite(_inviter: String, _invitee: String, _inviter_id: int) -> void:
-	# if WaitingRoom.has(invitee), then get invitee_id
 	if not available_players.has(_invitee):
-		print("debug: player " + str(_invitee) + " is not available")
+		Logger.debug("debug: player " + str(_invitee) + " is not available")
 		return
 	var invitation: Dictionary
 	invitation.inviter = _inviter
@@ -85,4 +82,4 @@ func gen_invitation_id(inviter: String, invitee: String) -> String:
 func remove_invitation(invitation: Dictionary) -> void:
 	var invitation_id = gen_invitation_id(invitation.inviter, invitation.invitee)
 	invitations.erase(invitation_id)
-	print("invitation removed")
+	Logger.debug("invitation removed")
