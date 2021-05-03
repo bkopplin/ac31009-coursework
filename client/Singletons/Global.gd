@@ -42,4 +42,3 @@ func load_config() -> void:
 		services_ip = config.services.ip if config.services.has("ip") else "194.182.205.125"
 		services_port = int(config.services.port) if config.services.has("port") else 2001
 	
-	print(gateway_ip)
